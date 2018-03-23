@@ -1,13 +1,15 @@
 #ifndef STACKLIB_H
 #define STACKLIB_H
 
+typedef struct stack stack;
+
 stack *creaStack(int dim_max);
 
 void eliminaStack(stack *S);
 
-bool stackEmpty(stack *S);
+int stackEmpty(stack *S);
 
-bool stackFull(stack *S);
+int stackFull(stack *S);
 
 void push(stack *S, int da_inserire);
 

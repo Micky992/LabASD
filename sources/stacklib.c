@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include <stdbool.h>
+#include <stdlib.h>
 #include <stacklib.h>
 
 typedef struct stack{
- int * array;
+ int *array;
  int dimensione;
 }stack;
 
@@ -16,16 +16,18 @@ stack *creaStack(int dim_max){
 }
 
 void eliminaStack(stack *S){
-  free(S->array);
-  free(S);
+  if (S != NULL){
+    free(S->array);
+    free(S);
+  }
   return;
 }
 
-bool stackEmpty(stack *S){
+int stackEmpty(stack *S){
   return (S->array[0] == 0); //Accedo ad S[0], che è la locazione contenente l'indice del array dello stack.
 }
 
-bool stackFull(stack *S){
+int stackFull(stack *S){
   return (S->array[0] == S->dimensione);
 }
 
@@ -57,8 +59,8 @@ void stampaStack(stack *S){
   int i;
 
   if(!stackEmpty(S)){
+    i = pop(S);
     stampaStack(S);
-    i = Pop(S);
     printf("%d ", i);
     push(S, i);
   }

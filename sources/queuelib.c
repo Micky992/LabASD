@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdbool.h>
+#include <stdlib.h>
 #include <queuelib.h>
 
 typedef struct queue{
@@ -7,7 +7,7 @@ typedef struct queue{
   int dimensione;
 }queue;
 
-queue creaQueue(int dim_max){
+queue *creaQueue(int dim_max){
   queue *Q = (queue *)malloc(sizeof(queue));
   Q->array = (int *)malloc( (dim_max + 2) * (sizeof(int)) );
   Q->dimensione = dim_max;
@@ -17,21 +17,23 @@ queue creaQueue(int dim_max){
 }
 
 void eliminaQueue(queue *Q){
-  free(Q->array);
-  free(Q);
+  if(Q != NULL){
+    free(Q->array);
+    free(Q);
+  }
   return;
 }
 
-bool queueEmpty(queue Q){
+int queueEmpty(queue *Q){
   return (Q->array[0] == 0);
 }
 
-bool queueFull(queue Q){
+int queueFull(queue *Q){
   return (Q->array[0] == Q->array[Q->dimensione + 1]);
 }
 
 void enqueue(queue *Q, int da_inserire){
-  if(!queueFull){
+  if(!queueFull(Q)){
     Q->array[Q->array[Q->dimensione+1]] = da_inserire;
     if (Q->array[0] == 0)
       Q->array[0] = 1;
@@ -60,22 +62,22 @@ int dequeue(queue *Q){
   return x;
 }
 
-void stampaQueue(queue *Q){
+void stampaQ(queue *Q){
 
-  int i;
+  int x;
 
-  if (!queueEmpty){
+  if (!queueEmpty(Q)){
     x = dequeue(Q);
-    stampaQueue(Q);
-    printf("%d ", i);
-    enqueue(Q, i);
+    stampaQ(Q);
+    printf("%d ", x);
+    enqueue(Q, x);
   }
 
   return;
 }
 
 void reverse(queue *Q){
-  if(!queueEmpty){
+  if(!queueEmpty(Q)){
    int x = dequeue(Q);
    reverse(Q);
    enqueue(Q, x);
@@ -83,8 +85,9 @@ void reverse(queue *Q){
   return;
 }
 
-void stampaQ(queue *Q){
-  stampaQueue(Q);
+void stampaQueue(queue *Q){
+  stampaQ(Q);
   reverse(Q);
+  printf("\n");
   return;
 }
