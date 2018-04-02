@@ -4,8 +4,8 @@
 void heapify(int albero[], int radice, int dimensione){
 
   int figlio_sx, figlio_dx, massimo;
-  figlio_sx = leftSon(radice);
-  figlio_dx = rightSon(radice);
+  figlio_sx = leftSon(radice);//a figlio_sx viene assegnato il figlio sinistro del nodo passato come radice
+  figlio_dx = rightSon(radice);//a figlio_dx il destro
 
   if(figlio_sx < dimensione && albero[radice] < albero[figlio_sx]){//se il figlio sinistro è presente nell'array ed è maggiore della radice
     massimo = figlio_sx;//figlio_sx diventa candidato a essere nuova radice
@@ -18,7 +18,7 @@ void heapify(int albero[], int radice, int dimensione){
   }
 
   if(massimo != radice){//solo se il massimo non è in radice
-    swap(albero, radice, massimo);
+    swap(albero, radice, massimo);//sposta il massimo in radice
     heapify(albero, massimo, dimensione);//mandare giù la radice richiede di ripristinare l'heap fra questa e i suoi nuovi figli
   }
 
@@ -26,19 +26,19 @@ void heapify(int albero[], int radice, int dimensione){
 }
 
 int leftSon(int radice){
-  return (2 * radice) + 1;
+  return (2 * radice) + 1;//nella rappresentazione di heap con array il figlio sinistro di un nodo radice ha questo come indice
 }
 
-int rightSon(int radice){
+int rightSon(int radice){//come sopra
   return (2 * radice) + 2;
 }
 
 void swap(int array[], int elem1, int elem2){
 
-  int temp;
+  int temp;//per conservare il valore di uno degli elementi dell'array durante lo scambio
 
-  temp = array[elem1];
-  array[elem1] = array[elem2];
+  temp = array[elem1];//conserva il valore di array[elem1]
+  array[elem1] = array[elem2];//prima che questo venga sovrascritto da array[elem2]
   array[elem2] = temp;
 
   return;
@@ -47,7 +47,7 @@ void swap(int array[], int elem1, int elem2){
 void buildHeap(int albero[], int dimensione){
   int i;
 
-  for (i = (dimensione / 2); i >= 0 ; i--){//heapify chiamato su tutti i nodi interni a partire dal basso costruidce l'heap
+  for (i = (dimensione / 2); i >= 0 ; i--){//heapify chiamato su tutti i nodi interni a partire dal basso costruisce l'heap
     heapify(albero, i, dimensione);
   }
 
@@ -60,7 +60,7 @@ void heapSort(int heap[], int dimensione){
 
   for(i = dimensione-1; i>=1; i--){
     swap(heap, 0, i);//porta l'elemento massimo dal primo all'ultimo posto
-    dimensione--;//escludi l'ultimo elemento dell'array, nel quale rimane il massimo
+    dimensione--;//esclude l'ultimo elemento dell'array, nel quale rimane il massimo
     heapify(heap, 0, dimensione);//ripristina l'heap portando il massimo in radice
   }
 
@@ -71,10 +71,10 @@ void riempi(int array[], int dimensione){
 
   int i;
 
-  for (i = 0; i < dimensione; i++){
+  for (i = 0; i < dimensione; i++){//per dimensione volte
 
-    printf("Inserire elemento %d: ", i);
-    scanf("%d", array + i);
+    printf("Inserire elemento %d: ", i);//richiede un intero
+    scanf("%d", array + i);//lo inserisce nell'array
   }
 
   return;
