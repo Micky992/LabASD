@@ -163,3 +163,107 @@ int rimuoviArco(grafo *g, int partenza, int arrivo){
   }
   return ret;
 }
+
+int aggiungiVertice(grafo *g){
+
+  arco **nuovo = NULL;
+  int ret = 0;
+
+  if(!grafoVuoto(g)){
+
+    nuovo = (arco**)realloc(g->adiacenti, g->n_vertici + 1);
+
+    if(nuovo != NULL){
+      g->adiacenti = nuovo;
+      g->n_vertici = g->n_vertici + 1;
+      ret = 1;
+    }else{
+      printf("Impossibile allocare memoria per nuovo vertice\n");
+    }
+  }else{
+    printf("Grafo vuoto\n");
+  }
+
+  return ret;
+}
+
+int eliminaVertice(grafo *g, int vertice){
+
+  int ret = 0;
+  int i;
+  arco **nuovo = NULL;
+  arco *prev = NULL, *curr = NULL;
+
+  if(!grafoVuoto(g)){
+
+    if(vertice < g->n_vertici){
+
+      nuovo = (arco**)malloc(sizeof(arco*) * (g->n_vertici - 1));
+      if(nuovo != NULL){
+
+        ret = 1;
+
+        for(i = 0; i < g->n_vertici; i++){
+
+          if(i < vertice || i > vertice){
+            curr = g->adiacenti[i];
+            prev = curr;
+
+            while(curr != NULL){
+
+              if(curr->key == vertice){
+
+                if(curr == g->adiacenti[i]){
+                  g->adiacenti[i] = g->adiacenti[i]->next;
+                  free(curr);
+                  curr = g->adiacenti[i];
+
+                }else{
+                  prev->next = curr->next;
+                  free(curr);
+                  curr = prev->next;
+                }
+
+              }else{
+
+                if(curr->key > vertice){
+                  curr->key = curr->key - 1;
+
+                }
+                prev = curr;
+                curr = curr->next;
+              }
+            }
+
+            if(i < vertice){
+              nuovo[i] = g->adiacenti[i];
+            }else{
+              nuovo[i-1] = g->adiacenti[i];
+            }
+
+          }else if(i == vertice){
+
+            prev = g->adiacenti[i];
+
+            while(prev != NULL){
+              curr = prev->next;
+              free(prev);
+              prev = curr;
+            }
+          }
+        }
+
+        free(g->adiacenti);
+        g->adiacenti = nuovo;
+        g->n_vertici = g->n_vertici - 1;
+
+      }else{
+        printf("ERRORE in eliminaVertice: Impossibile allocare memoria per nuovo vettore delle adiacenze\n");
+      }
+    }else{
+      printf("ERRORE in eliminaVertice: Vertice da eliminare fuori dal range del grafo\n");
+    }
+  }else{
+    printf("ERRORE in eliminaVertice: Il grafo e' vuoto\n");
+  }
+}
