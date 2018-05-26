@@ -34,6 +34,10 @@ int rimuoviArco(grafo *g, int partenza, int arrivo);
 *elimina l'arco da partenza ad arrivo dal grafo
 *ritorna 1 se l'arco e' stato eliminato oppure non era presente, 0 altrimenti
 */
+int esisteArco(grafo *g, int i, int j);
+/*prende un puntatore a grafo e due interi rappresentanti due vertici del grafo e controlla se è presente un arco che va dal vertice i al vertice j, in tal caso restituisce 1, altrimenti 0*/
+int esisteVertice(grafo *g, int v);
+/*prende un puntatore a grafo e un intero rappresentante un vertice e controlla se questo vertice è presente nel grafo, se è presente restituisce 1, 0 altrimenti*/
 int aggiungiVertice(grafo *g);
 /*prende un puntatore a grafo
 *se il grafo non e' vuoto, aggiunge un vertice

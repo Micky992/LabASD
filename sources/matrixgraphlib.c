@@ -85,6 +85,16 @@ int indice(grafo *g, int i, int j){ //restituisce l'indice della locazione nella
   return (i * g->n_vertici) + j;
 }
 
+int esisteArco(grafo *g, int i, int j){  //restituisce 1 se l'arco dal vertice i al vertice j esiste, 0 altrimenti
+  int ret;
+  ret = g->adiacenti[indice(g, i, j)];
+  return ret;
+}
+
+int esisteVertice(grafo *g, int v){  //restistuisce 1 se il vertice è presente nel grafo, 0 altrimenti
+  return (v < g->n_vertici);
+}
+
 int aggiungiVertice(grafo *g){
   int ret = 0;
   int vertici;
