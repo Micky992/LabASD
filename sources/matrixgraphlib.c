@@ -81,6 +81,9 @@ int rimuoviArco(grafo *g, int partenza, int arrivo){
     return ret;     //Ritorna 1 se l'arco è stato rimosso o è non era presente, 0 altrimenti.
 }
 
+int indice(grafo *g, int i, int j){ //restituisce l'indice della locazione nella matrice di adiacenza con riga i e colonna j
+  return (i * g->n_vertici) + j;
+}
 
 int aggiungiVertice(grafo *g){
   int ret = 0;
