@@ -26,13 +26,13 @@ int aggiungiArco(grafo *g, int partenza, int arrivo);
 /*prende un puntatore a grafo e due interi rappresentanti vertici del grafo
 *se il grafo non e' vuoto, il vertice di partenza esiste e l'arco da partenza ad arrivo non e' gia' presente
 *inserisce l'arco da partenza ad arrivo nel grafo
-*ritorna 1 se l'arco e' stato inserito, 0 altrimenti
+*ritorna 1 se l'arco e' stato inserito oppure è già presente, 0 altrimenti
 */
 int rimuoviArco(grafo *g, int partenza, int arrivo);
 /*prende un puntatore a grafo e due interi rappresentanti vertici del grafo
 *se il grafo non e' vuoto, il vertice di partenza esiste e l'arco da partenza ad arrivo e' presente nel grafo
 *elimina l'arco da partenza ad arrivo dal grafo
-*ritorna 1 se l'arco e' stato eliminato, 0 altrimenti
+*ritorna 1 se l'arco e' stato eliminato oppure non era presente, 0 altrimenti
 */
 int aggiungiVertice(grafo *g);
 /*prende un puntatore a grafo
