@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <matrixgraphlib.h>
+#include <graphlib.h>
 
 typedef struct grafo{
   int n_vertici;
@@ -45,12 +45,25 @@ int nuovoGrafo(int vertici, grafo **g){   //Funzione che costruisce un grafo con
   return ret;     //Ritorna 1 se la costruzione del grafo è andata a buon fine, 0 altrimenti.
 }
 
+int numeroVertici(grafo *g){
+
+  int ret;
+
+  if(!grafoVuoto(g)){
+    ret = g->n_vertici;
+  }else{
+    ret = 0;
+  }
+
+  return ret;
+}
+
 int modificaArco(grafo *g, int partenza, int arrivo, int op){
 
   int ret = 0;
   if(!grafoVuoto(g)){
-    if(partenza < grafo->n_vertici && arrivo < grafo->n_vertici){
-      grafo->adiacenti[(g->n_vertici * partenza) + arrivo] = op;
+    if(partenza < g->n_vertici && arrivo < g->n_vertici){
+      g->adiacenti[(g->n_vertici * partenza) + arrivo] = op;
       ret = 1;
     }else{
       printf("ERRORE: vertice di partenza o arrivo non presenti\n");
