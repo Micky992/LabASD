@@ -53,11 +53,7 @@ dummyList successivoDummy(dummyList nodo){
   return ret;
 }
 
-<<<<<<< HEAD
 int valoreDummy(dummyList nodo){
-=======
-int elementoDummy(dummyList nodo){
->>>>>>> 69c418eae50496242621789acf1d6e8e7c35257a
   int ret = 0;
   if(nodo !=NULL){
     ret = nodo->info;
