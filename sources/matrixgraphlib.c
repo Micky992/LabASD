@@ -64,7 +64,7 @@ int numeroArchi(grafo *g){
   int ret = 0;
   int i;
 
-  if(!grafovuoto(g)){
+  if(!grafoVuoto(g)){
     for(i = 0; i < g->n_vertici * g->n_vertici; i++){//scorre tutta la matrice di adiacenza
 
       if(g->adiacenti[i] == 1){
