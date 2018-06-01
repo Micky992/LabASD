@@ -9,6 +9,14 @@ void stampaListaDop(dlista top);
 
 dlista newElemDop(int k);
 
+dlista precedente(dlista nodo);
+
+dlista successivo(dlista nodo);
+/*restituisce il next del nodo puntato da nodo*/
+
+int elemento(dlista nodo);
+/*restituisce l'elemento contenuto nel nodo*/
+
 dlista aggiungiInTestaDop(dlista top, int k);
 
 dlista aggiungiInCodaDop(dlista top, int k);

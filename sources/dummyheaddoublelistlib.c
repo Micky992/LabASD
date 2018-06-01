@@ -37,6 +37,30 @@ dummyList nuovaListaDummy(void){
   return tmp;
 }
 
+dummyList precedenteDummy(dummyList nodo){
+  dummyList ret = NULL;
+  if(nodo != NULL){
+    ret = nodo->prev;
+  }
+  return ret;
+}
+
+dummyList successivoDummy(dummyList nodo){
+  dummyList ret = NULL;
+  if(nodo != NULL){
+    ret = nodo->next;
+  }
+  return ret;
+}
+
+int elementoDummy(dummyList nodo){
+  int ret = 0;
+  if(nodo !=NULL){
+    ret = nodo->info;
+  }
+  return ret;
+}
+
 int aggiungiInCodaDummy(dummyList dum, int k){
 
   int ret = 1;

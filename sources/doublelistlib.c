@@ -20,6 +20,30 @@ void stampaListaDop(dlista top){
   return;
 }
 
+dlista precedente(dlista nodo){
+  dlista ret = NULL;
+  if(nodo != NULL){
+    ret = nodo->prev;
+  }
+  return ret;
+}
+
+dlista successivo(dlista nodo){
+  dlista ret = NULL;
+  if(nodo != NULL){
+    ret = nodo->next;
+  }
+  return ret;
+}
+
+int elemento(dlista nodo){
+  int ret = 0;
+  if(nodo !=NULL){
+    ret = nodo->info;
+  }
+  return ret;
+}
+
 dlista newElemDop(int k){
 
     dlista E =(dlista)malloc(sizeof(delem));//alloca dinamicamente spazio per un elem, E diventa un puntatore a questo spazio
