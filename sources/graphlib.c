@@ -38,10 +38,15 @@ int nuovoGrafo(int vertici, grafo **g){
         ret = 1;
 
       }else{//se la malloc del vettore e' fallita
+        printf("ERRORE in nuovoGrafo: impossibile allocare memoria per vettore di liste di adiacenza\n");
         free(nuovo);//dealloca la memoria del grafo
       }
-    }//caso memoria per grafo non allocata gestito implicitamente
-  }//caso vertici <= 0 gestito implicitamente
+    }else{//caso memoria per grafo non allocata gestito implicitamente
+      printf("ERRORE in nuovoGrafo: impossibile allocare memoria per grafo\n");
+    }
+  }else{//caso vertici <= 0 gestito implicitamente
+    printf("ERRORE in nuovoGrafo: impossibile creare grafo di 0 vertici\n");
+  }
   return ret;//ritorna 1 o 0 a seconda che la creazione sia andata a buon fine o meno
 }
 
@@ -96,7 +101,7 @@ int aggiungiArco(grafo *g, int partenza, int arrivo){
 
   if(!grafoVuoto(g)){
 
-    if(partenza < g->n_vertici){
+    if(partenza < g->n_vertici && arrivo < g->n_vertici){
 
       curr = g->adiacenti[partenza];//imposta curr al primo arco uscente da partenza
       while(curr != NULL && curr->next != NULL && curr->key != arrivo){
@@ -116,7 +121,7 @@ int aggiungiArco(grafo *g, int partenza, int arrivo){
         ret = 1;
       }
     }else{
-      printf("Non esiste il vertice di partenza\n");
+      printf("Non esiste il vertice di partenza o di arrivo\n");
     }
   }else{
     printf("Il grafo e' vuoto");
@@ -132,7 +137,7 @@ int rimuoviArco(grafo *g, int partenza, int arrivo){
 
   if(!grafoVuoto(g)){
 
-    if(partenza < g->n_vertici){
+    if(partenza < g->n_vertici && arrivo < g->n_vertici){
 
       ret = 1;
       curr = g->adiacenti[partenza];
@@ -154,14 +159,24 @@ int rimuoviArco(grafo *g, int partenza, int arrivo){
 
       }else{
         printf("L'arco non e' presente nel grafo\n");
+        ret = 1;
       }
     }else{
-      printf("Non esiste il vertice di partenza\n");
+      printf("Non esiste il vertice di partenza o di arrivo\n");
     }
   }else{
     printf("Il grafo e' vuoto\n");
   }
   return ret;
+}
+
+int esisteArco(grafo *g, int i, int j){//TODO scrivere funzione esisteArco
+  printf("TODO scrivere funzione esisteArco\n");
+  return -1;
+}
+
+int esisteVertice(grafo *g, int v){
+  return v < g->n_vertici;
 }
 
 int aggiungiVertice(grafo *g){
@@ -187,7 +202,7 @@ int aggiungiVertice(grafo *g){
   return ret;
 }
 
-int eliminaVertice(grafo *g, int vertice){
+int rimuoviVertice(grafo *g, int vertice){
 
   int ret = 0;
   int i;

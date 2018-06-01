@@ -17,29 +17,30 @@ int nuovoGrafo(int vertici, grafo **g){   //Funzione che costruisce un grafo con
   int ret = 0;
   int i;
 
-  if(vertici > 0){        //Se il numero di vertici nel grafo è maggiore di zero, tenta di allocare la memoria per il grafo.
+  if(vertici > 0){//Se il numero di vertici nel grafo è maggiore di zero, tenta di allocare la memoria per il grafo.
     nuovo = (grafo*)malloc(sizeof(grafo));
 
-    if(nuovo != NULL){            //Se la memoria per il grafo è stata allocata con successo, setta il numero di vertici e procede all'allocazione della matrice di adiacenza.
+    if(nuovo != NULL){//Se la memoria per il grafo è stata allocata con successo
       nuovo->n_vertici = vertici;
-      nuovo->adiacenti = (int*)malloc( (vertici * vertici) * sizeof(int));
-      if(nuovo->adiacenti != NULL) {
-        for(i = 0; i < vertici*vertici; i++){
+      nuovo->adiacenti = (int*)malloc( (vertici * vertici) * sizeof(int));//alloca memoria per la matrice di adiacenza.
+
+      if(nuovo->adiacenti != NULL) {//se la matrice e' stata allocata con successo
+        for(i = 0; i < vertici*vertici; i++){//ne azzera il contenuto
           nuovo->adiacenti[i] = 0;
         }
-        *g = nuovo;
-        ret = 1;      //Se tutto è andato bene, la funzione ritornerà TRUE.
+
+        *g = nuovo;//il puntatore parametro viene fatto puntare al grafo allocato
+        ret = 1;//aggiorna il valore che segnala l'esito della funzione
       }
-      else{     //Se la funzione fallisce ad allocare la matrice di adiacenza scrive un messaggio di errore e libera la memoria occupata da nuovo.
-        printf("Matrice di adiacenza non allocata.\n");
+      else{
+        printf("ERRORE in nuovoGrafo: impossibile allocare memoria per matrice di adiacenza\n");
         free(nuovo);
       }
     }else {
-      printf("Memoria non allocata.\n");
+      printf("ERRORE in nuovoGrafo: impossibile allocare memoria per grafo\n");
     }
-
   }else {
-    printf("Grafo vuoto. Impossibile allocare.\n");
+    printf("ERRORE in nuovoGrafo: impossibile creare grafo di 0 vertici\n");
   }
 
   return ret;     //Ritorna 1 se la costruzione del grafo è andata a buon fine, 0 altrimenti.
@@ -58,6 +59,23 @@ int numeroVertici(grafo *g){
   return ret;
 }
 
+int numeroArchi(grafo *g){
+
+  int ret = 0;
+  int i;
+
+  if(!grafovuoto(g)){
+    for(i = 0; i < g->n_vertici * g->n_vertici; i++){//scorre tutta la matrice di adiacenza
+
+      if(g->adiacenti[i] == 1){
+        ret = ret + 1;
+      }
+
+    }
+  }
+  return ret;
+}
+
 int modificaArco(grafo *g, int partenza, int arrivo, int op){
 
   int ret = 0;
@@ -66,10 +84,10 @@ int modificaArco(grafo *g, int partenza, int arrivo, int op){
       g->adiacenti[(g->n_vertici * partenza) + arrivo] = op;
       ret = 1;
     }else{
-      printf("ERRORE: vertice di partenza o arrivo non presenti\n");
+      printf("ERRORE in modificaArco: vertice di partenza o arrivo non presenti\n");
     }
   }else{
-    printf("ERRORE: grafo vuoto\n");
+    printf("ERRORE in modificaArco: grafo vuoto\n");
   }
   return ret;
 }
@@ -81,7 +99,7 @@ int aggiungiArco(grafo *g, int partenza, int arrivo){
     printf("Impossibile aggiungere arco.\n");
     ret = 0;
   }
-  return ret;     //Ritorna 1 se l'arco è stato aggiunto o è già presente, 0 altrimenti.
+  return ret;//Ritorna 1 se l'arco è stato aggiunto o è già presente, 0 altrimenti.
 }
 
 int rimuoviArco(grafo *g, int partenza, int arrivo){
@@ -91,20 +109,20 @@ int rimuoviArco(grafo *g, int partenza, int arrivo){
       printf("Impossibile rimuovere arco.\n");
       ret = 0;
     }
-    return ret;     //Ritorna 1 se l'arco è stato rimosso o è non era presente, 0 altrimenti.
+    return ret;//Ritorna 1 se l'arco è stato rimosso o è non era presente, 0 altrimenti.
 }
 
-int indice(grafo *g, int i, int j){ //restituisce l'indice della locazione nella matrice di adiacenza con riga i e colonna j
+int indice(grafo *g, int i, int j){//restituisce l'indice della locazione nella matrice di adiacenza con riga i e colonna j
   return (i * g->n_vertici) + j;
 }
 
-int esisteArco(grafo *g, int i, int j){  //restituisce 1 se l'arco dal vertice i al vertice j esiste, 0 altrimenti
+int esisteArco(grafo *g, int i, int j){//restituisce 1 se l'arco dal vertice i al vertice j esiste, 0 altrimenti
   int ret;
   ret = g->adiacenti[indice(g, i, j)];
   return ret;
 }
 
-int esisteVertice(grafo *g, int v){  //restistuisce 1 se il vertice è presente nel grafo, 0 altrimenti
+int esisteVertice(grafo *g, int v){//restistuisce 1 se il vertice è presente nel grafo, 0 altrimenti
   return (v < g->n_vertici);
 }
 
