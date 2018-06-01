@@ -18,11 +18,7 @@ dummyList precedenteDummy(dummyList nodo);
 dummyList successivoDummy(dummyList nodo);
 /*ritorna il next del nodo*/
 
-<<<<<<< HEAD
 int valoreDummy(dummyList nodo);
-=======
-int elementoDummy(dummyList nodo);
->>>>>>> 69c418eae50496242621789acf1d6e8e7c35257a
 /*ritorna il campo del nodo*/
 
 int aggiungiInCodaDummy(dummyList dum, int k);
