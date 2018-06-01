@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <dummyheaddoublelistlib.h>
+#include <stdlib.h>
 
 typedef struct dummyNode{
   int info;
