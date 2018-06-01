@@ -25,6 +25,23 @@ void stampaLista(lista top){
   return;
 }
 
+lista successivo (lista nodo){
+  lista ret = NULL;
+  if (nodo != NULL) {
+    ret = nodo->next;
+  }
+  return ret;
+}
+
+int elemento(lista nodo)
+{
+  int ret = 0;
+  if(nodo != NULL){
+    ret = nodo->info;
+  }
+  return ret;
+}
+
 lista newElem(int k){
 
     lista E =(lista)malloc(sizeof(elem));//alloca dinamicamente spazio per un elem, E diventa un puntatore a questo spazio

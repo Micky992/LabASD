@@ -11,6 +11,12 @@ puo' contenere solo un indirizzo di nodo o il valore NULL*/
 void stampaLista(lista top);
 /*stampa tutti gli elementi di una lista di interi*/
 
+lista successivo(lista nodo);
+/*restituisce il next del nodo puntato da nodo*/
+
+int elemento(lista nodo);
+/*restituisce l'elemento contenuto nel nodo*/
+
 lista newElem(int k);
 /*alloca memoria per un nuovo elemento
 ritorna un puntatore all'elemento*/

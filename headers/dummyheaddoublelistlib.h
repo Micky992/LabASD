@@ -11,6 +11,16 @@ int listaVuotaDummy(dummyList dum);
 dummyList nuovaListaDummy(void);
 /*ritorna un puntatore a lista puntata circolare con elemento fittizio vuota
 */
+
+dummyList precedenteDummy(dummyList nodo);
+/*ritorna il precedente del nodo*/
+
+dummyList successivoDummy(dummyList nodo);
+/*ritorna il next del nodo*/
+
+int valoreDummy(dummyList nodo);
+/*ritorna il campo del nodo*/
+
 int aggiungiInCodaDummy(dummyList dum, int k);
 /*prende in ingresso un puntatore a lista doppiamente puntata circolare con elemento fittizio e un intero
 *inserisce l'elemento k in coda alla lista dum
