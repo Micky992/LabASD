@@ -290,3 +290,8 @@ int rimuoviVertice(grafo *g, int vertice){
   }
   return ret;
 }
+
+int comparaGrafi(grafo *g1, grafo *g2) {
+  printf("TODO: fare funzione comparagrafi.\n");
+  return 0;
+}

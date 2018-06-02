@@ -2,7 +2,7 @@
 #define DUMMY_HEAD_DOUBLE_LIST_LIB_H
 
 typedef struct dummyNode dummyNode;
-typedef struct dummyList dummyList;
+typedef dummyNode* dummyList;
 
 int listaVuotaDummy(dummyList dum);
 /*prende in ingresso un puntatore a lista doppiamente puntata circolare con elemento fittizio

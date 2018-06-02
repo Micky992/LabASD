@@ -205,3 +205,23 @@ int rimuoviVertice(grafo *g, int vertice){
   }
   return ret;
 }
+
+int comparaGrafi(grafo *g1, grafo *g2)    //funzione che controlla se il grafo g1 e g2 sono uguali tra loro comparando le liste di adiacenza
+{                                         //ritorna 1 se i grafi sono uguali, 0 se sono diversi
+  int ret = 1, i = 0, j = 0;
+  if(g1 != NULL && g2 != NULL)
+  {
+      for(i = 0; ret && i < (numeroVertici(g1) * numeroVertici(g1)) ; i++)
+      {
+          if( g1->adiacenti[i] != g2->adiacenti[i] )
+           {
+             ret = 0;
+           }
+      }
+  }else
+  {
+    ret = 0;
+  }
+
+  return ret;
+}

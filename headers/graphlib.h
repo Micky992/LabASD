@@ -50,4 +50,5 @@ int rimuoviVertice(grafo *g, int vertice);
 *elimina dal grafo il vertice e tutti gli archi uscenti o entranti da questo, i vertici successivi hanno il loro numero ridotto di conseguenza
 *ritorna 1 se il vertice e' stato eliminato, 0 altrimenti
 */
+int comparaGrafi(grafo *g1, grafo *g2);
 #endif
