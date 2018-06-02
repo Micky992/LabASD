@@ -59,6 +59,21 @@ int numeroVertici(grafo *g){
   return ret;
 }
 
+void stampaGrafo(grafo *g){
+  int i, j;
+
+  if(!grafoVuoto(g)){
+    for(i = 0; i < numeroVertici(g); i++){
+      for(j = 0; j < numeroVertici(g) ; j++){
+        if(g->adiacenti[(i * numeroVertici(g)) + j]){
+          printf("%d -> %d\n", i, j);
+        }
+      }
+    }
+  }
+  return;
+}
+
 int numeroArchi(grafo *g){
 
   int ret = 0;

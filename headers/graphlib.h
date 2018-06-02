@@ -14,6 +14,8 @@ int nuovoGrafo(int vertici, grafo **g);
 *restituisce 0 se non e' possibile allocare memoria per il grafo o se si cerca di creare un grafo con 0 vertici, 1 altrimenti
 *il puntatore passato punta alla memoria allocata per il grafo
 */
+void stampaGrafo(grafo *g);
+/*stampa il grafo puntato dal puntatore g*/
 int numeroVertici(grafo *g);
 /*prende in ingresso un puntatore a grafo
 *restituisce il numero di vertici, 0 se il grafo e' vuoto

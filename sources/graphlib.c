@@ -94,6 +94,12 @@ int numeroArchi(grafo *g){
   return ret;
 }
 
+void stampaGrafo(grafo *g)
+{
+  printf("TODO: funzione stampaGrafo con le liste di adiacenza, i'm 2lazy.\n");
+  return;
+}
+
 int aggiungiArco(grafo *g, int partenza, int arrivo){
 
   arco *curr;
