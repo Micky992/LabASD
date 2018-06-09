@@ -312,3 +312,21 @@ int comparaGrafi(grafo *g1, grafo *g2) {
   printf("TODO: fare funzione comparagrafi.\n");
   return 0;
 }
+
+void randomizzaGrafo(grafo *g){
+  int j, z;
+
+  if(!grafoVuoto(g)){
+
+    for(j = 0; j < numeroVertici(g); j++){
+      for(z = 0; z < numeroVertici(g); z++){
+        if(rand() % 2 == 1){
+          aggiungiArco(g, j, z);
+        }
+      }
+    }
+  }else{
+    printf("ERRORE in randomizzaGrafo: il puntatore a grafo passato alla funzione e' NULL.\n");
+  }
+  return;
+}

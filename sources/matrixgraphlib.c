@@ -2,23 +2,23 @@
 #include <stdlib.h>
 #include "graphlib.h"
 
-typedef struct grafo{
+typedef struct grafomat{
   int n_vertici;
   int *adiacenti;
-}grafo;
+}grafomat;
 
-int grafoVuotoMatrix(grafo *g){
+int grafoVuotoMatrix(grafomat *g){
   return (g == NULL);
 }
 
-int nuovoGrafoMatrix(int vertici, grafo **g){   //Funzione che costruisce un grafo con matrice di adiacenza.
+int nuovoGrafoMatrix(int vertici, grafomat **g){   //Funzione che costruisce un grafo con matrice di adiacenza.
 
-  grafo *nuovo;
+  grafomat *nuovo;
   int ret = 0;
   int i;
 
   if(vertici > 0){//Se il numero di vertici nel grafo è maggiore di zero, tenta di allocare la memoria per il grafo.
-    nuovo = (grafo*)malloc(sizeof(grafo));
+    nuovo = (grafomat*)malloc(sizeof(grafomat));
 
     if(nuovo != NULL){//Se la memoria per il grafo è stata allocata con successo
       nuovo->n_vertici = vertici;
@@ -46,7 +46,7 @@ int nuovoGrafoMatrix(int vertici, grafo **g){   //Funzione che costruisce un gra
   return ret;     //Ritorna 1 se la costruzione del grafo è andata a buon fine, 0 altrimenti.
 }
 
-int numeroVerticiMatrix(grafo *g){
+int numeroVerticiMatrix(grafomat *g){
 
   int ret;
 
@@ -59,7 +59,7 @@ int numeroVerticiMatrix(grafo *g){
   return ret;
 }
 
-void stampaGrafoMatrix(grafo *g){
+void stampaGrafoMatrix(grafomat *g){
   int i, j;
 
   if(!grafoVuotoMatrix(g)){
@@ -74,7 +74,7 @@ void stampaGrafoMatrix(grafo *g){
   return;
 }
 
-int numeroArchiMatrix(grafo *g){
+int numeroArchiMatrix(grafomat *g){
 
   int ret = 0;
   int i;
@@ -91,7 +91,7 @@ int numeroArchiMatrix(grafo *g){
   return ret;
 }
 
-int modificaArcoMatrix(grafo *g, int partenza, int arrivo, int op){
+int modificaArcoMatrix(grafomat *g, int partenza, int arrivo, int op){
 
   int ret = 0;
   if(!grafoVuotoMatrix(g)){
@@ -107,7 +107,7 @@ int modificaArcoMatrix(grafo *g, int partenza, int arrivo, int op){
   return ret;
 }
 
-int aggiungiArcoMatrix(grafo *g, int partenza, int arrivo){
+int aggiungiArcoMatrix(grafomat *g, int partenza, int arrivo){
 
   int ret = 1;
   if(!modificaArcoMatrix(g, partenza, arrivo, 1)){
@@ -117,7 +117,7 @@ int aggiungiArcoMatrix(grafo *g, int partenza, int arrivo){
   return ret;//Ritorna 1 se l'arco è stato aggiunto o è già presente, 0 altrimenti.
 }
 
-int rimuoviArcoMatrix(grafo *g, int partenza, int arrivo){
+int rimuoviArcoMatrix(grafomat *g, int partenza, int arrivo){
 
     int ret = 1;
     if(!modificaArcoMatrix(g, partenza, arrivo, 0)){
@@ -127,21 +127,21 @@ int rimuoviArcoMatrix(grafo *g, int partenza, int arrivo){
     return ret;//Ritorna 1 se l'arco è stato rimosso o è non era presente, 0 altrimenti.
 }
 
-int indiceMatrix(grafo *g, int i, int j){//restituisce l'indice della locazione nella matrice di adiacenza con riga i e colonna j
+int indiceMatrix(grafomat *g, int i, int j){//restituisce l'indice della locazione nella matrice di adiacenza con riga i e colonna j
   return (i * g->n_vertici) + j;
 }
 
-int esisteArco(grafo *g, int i, int j){//restituisce 1 se l'arco dal vertice i al vertice j esiste, 0 altrimenti
+int esisteArco(grafomat *g, int i, int j){//restituisce 1 se l'arco dal vertice i al vertice j esiste, 0 altrimenti
   int ret;
   ret = g->adiacenti[indiceMatrix(g, i, j)];
   return ret;
 }
 
-int esisteVerticeMatrix(grafo *g, int v){//restistuisce 1 se il vertice è presente nel grafo, 0 altrimenti
+int esisteVerticeMatrix(grafomat *g, int v){//restistuisce 1 se il vertice è presente nel grafo, 0 altrimenti
   return (v < g->n_vertici);
 }
 
-int aggiungiVerticeMatrix(grafo *g){
+int aggiungiVerticeMatrix(grafomat *g){
   int ret = 0;
   int vertici;
   int i = 0, j = 0;
@@ -176,7 +176,7 @@ int aggiungiVerticeMatrix(grafo *g){
   return ret;
 }
 
-int rimuoviVerticeMatrix(grafo *g, int vertice){
+int rimuoviVerticeMatrix(grafomat *g, int vertice){
   int i = 0, j = 0, ret = 0;
   int *matrice = NULL;
   int vertici;
@@ -199,14 +199,14 @@ int rimuoviVerticeMatrix(grafo *g, int vertice){
       ret = 1;
     }
     else{
-      printf("ERRORE in rimuoviVerticeMatrix: impossibile allocare memoria per nuova matrie di adiacenza.\n");}
+      printf("ERRORE in rimuoviVerticeMatrix: impossibile allocare memoria per nuova matrice di adiacenza.\n");}
   }else{
     printf("ERRORE in rimuoviVerticeMatrix: grafo vuoto.\n");
   }
   return ret;
 }
 
-int comparaGrafiMatrix(grafo *g1, grafo *g2)    //funzione che controlla se il grafo g1 e g2 sono uguali tra loro comparando le liste di adiacenza
+int comparaGrafiMatrix(grafomat *g1, grafomat *g2)    //funzione che controlla se il grafo g1 e g2 sono uguali tra loro comparando le liste di adiacenza
 {                                         //ritorna 1 se i grafi sono uguali, 0 se sono diversi
   int ret = 1, i = 0, j = 0;
   if(g1 != NULL && g2 != NULL)
@@ -224,4 +224,22 @@ int comparaGrafiMatrix(grafo *g1, grafo *g2)    //funzione che controlla se il g
   }
 
   return ret;
+}
+
+void randomizzaGrafoMatrix(grafomat *g){
+  int j, z;
+
+  if(!grafoVuotoMatrix(g)){
+
+    for(j = 0; j < numeroVerticiMatrix(g); j++){
+      for(z = 0; z < numeroVerticiMatrix(g); z++){
+        if(rand() % 2 == 1){
+          aggiungiArcoMatrix(g, j, z);
+        }
+      }
+    }
+  }else{
+    printf("ERRORE in randomizzaGrafoMatrix: il puntatore a grafo passato alla funzione e' NULL.\n");
+  }
+  return;
 }
