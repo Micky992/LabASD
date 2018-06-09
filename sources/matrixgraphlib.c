@@ -239,7 +239,7 @@ void randomizzaGrafoMatrix(grafomat *g){
       }
     }
   }else{
-    printf("ERRORE in randomizzaGrafoMatrix: il puntatore a grafo passato alla funzione e' NULL.\n");
+    printf("ERRORE in randomizzaGrafoMatrix: grafo vuoto.\n");
   }
   return;
 }
