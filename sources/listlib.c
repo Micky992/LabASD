@@ -112,33 +112,3 @@ int controllaOrdine(lista top){
 
   return ret;
 }
-
-lista eliminaRipetizioni(lista top){
-
-  lista temp;
-
-  if(top != NULL && top->next != NULL){//se la lista e' formata da almeno due elementi
-
-    temp = eliminaRipetizioni(top->next);//elimina ripetizioni nel resto della lista
-    top->next = temp;//concatena il top al resto con ripetizioni eliminate
-
-    if(top->info == top->next->info){//se c'e' ripetizione fra il top e il successivo
-      free(top);//elimina il top
-      top = temp;//imposta il suo successivo come nuovo top
-    }
-  }
-  return top;
-}
-
-lista interleaving(lista prima, lista seconda){
-
-  if(seconda == NULL)//se una delle due liste e' vuota ritorna l'altra
-    return prima;
-  else if(prima == NULL)
-    return seconda;
-  else{//se nessuna delle due e' vuota
-    seconda->next = interleaving(prima->next, seconda->next);//dopo il top di seconda andra' l'interleaving fra il resto delle due liste
-    prima->next = seconda;//dopo il top di prima andra' il top di seconda
-  }
-  return prima;
-}

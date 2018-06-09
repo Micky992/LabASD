@@ -44,13 +44,4 @@ int controllaOrdine(lista top);
 /*data una lista verifica che gli elementi siano in ordine crescente in senso largo
 ritorna 1 se lo sono, 0 se no*/
 
-lista interleaving(lista prima, lista seconda);
-/*date due liste costruisce una lista formata dagli elementi della prima alternati a quelli della seconda
-ritorna il puntatore alla lista ottenuta da questa operazione
-distrugge le liste originali*/
-
-lista eliminaRipetizioni(lista top);
-/*data una lista, elimina le eventuali ripetizioni consecutive dello stesso elemento lasciandone una sola occorrenza
-ritorna il puntatore alla lista privata delle ripetizioni*/
-
 #endif // LISTLIB_H

@@ -48,10 +48,6 @@ int rimuoviVerticeMatrix(grafomat *g, int vertice);
 *elimina dal grafo il vertice e tutti gli archi uscenti o entranti da questo, i vertici successivi hanno il loro numero ridotto di conseguenza
 *ritorna 1 se il vertice e' stato eliminato, 0 altrimenti
 */
-int comparaGrafiMatrix(grafomat *g1, grafomat *g2);
-/*prende in ingresso due puntatori a grafo
-*restituisce 1 se i grafi sono identici, 0 altrimenti
-*/
 void randomizzaGrafoMatrix(grafomat *g);
 /*Aggiunge archi pseudo-randomicamente nel grafo puntato da "g", se viene passato un puntatore NULL viene stampato un messaggio di errore.*/
 #endif
