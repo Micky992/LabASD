@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "graphlib.h"
+#include "matrixgraphlib.h"
 
 typedef struct grafomat{
   int n_vertici;
@@ -228,7 +228,7 @@ int comparaGrafiMatrix(grafomat *g1, grafomat *g2)    //funzione che controlla s
 
 void randomizzaGrafoMatrix(grafomat *g){
   int j, z;
-
+  srand(time(0));
   if(!grafoVuotoMatrix(g)){
 
     for(j = 0; j < numeroVerticiMatrix(g); j++){

@@ -315,7 +315,8 @@ int comparaGrafi(grafo *g1, grafo *g2) {
 
 void randomizzaGrafo(grafo *g){
   int j, z;
-
+  srand(time(0));
+  
   if(!grafoVuoto(g)){
 
     for(j = 0; j < numeroVertici(g); j++){
