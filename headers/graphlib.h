@@ -54,4 +54,6 @@ int comparaGrafi(grafo *g1, grafo *g2);
 /*prende in ingresso due puntatori a grafo
 *restituisce 1 se i grafi sono identici, 0 altrimenti
 */
+void randomizzaGrafo(grafo *g);
+/*Aggiunge archi pseudo-randomicamente nel grafo puntato da "g", se viene passato un puntatore NULL viene stampato un messaggio di errore.*/
 #endif
