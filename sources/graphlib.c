@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <graphlib.h>
+#include "graphlib.h"
 
 typedef struct arco{
   int key;
@@ -50,6 +50,29 @@ int nuovoGrafo(int vertici, grafo **g){
   return ret;//ritorna 1 o 0 a seconda che la creazione sia andata a buon fine o meno
 }
 
+void stampaGrafo(grafo *g){
+
+  int i;
+  arco *curr = NULL;
+
+  if(!grafoVuoto(g)){
+
+    for (i = 0; i < g->n_vertici; i++){
+
+      curr = g->adiacenti[i];
+
+      while(curr != NULL){
+        printf("%d -> %d\n", i, curr->key);
+        curr = curr->next;
+      }
+    }
+  }else{
+    printf("ERRORE in stampaGrafo: grafo vuoto\n");
+  }
+
+  return;
+}
+
 arco *nuovoArco(int destinazione){
 
   arco *nuovo = NULL;
@@ -92,12 +115,6 @@ int numeroArchi(grafo *g){
     }
   }
   return ret;
-}
-
-void stampaGrafo(grafo *g)
-{
-  printf("TODO: funzione stampaGrafo con le liste di adiacenza, i'm 2lazy.\n");
-  return;
 }
 
 int aggiungiArco(grafo *g, int partenza, int arrivo){
