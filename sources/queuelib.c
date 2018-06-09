@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <queuelib.h>
+#include "queuelib.h"
 
 typedef struct queue{
   int *array;

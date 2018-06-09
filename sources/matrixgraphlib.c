@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "graphlib.h"
+#include "matrixgraphlib.h"
 
 typedef struct grafo{
   int n_vertici;

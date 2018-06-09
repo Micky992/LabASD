@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stacklib.h>
+#include "stacklib.h"
 
 typedef struct stack{
  int *array;
