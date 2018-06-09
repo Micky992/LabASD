@@ -3,6 +3,7 @@
 
 typedef struct dummyNode dummyNode;
 typedef dummyNode* dummyList;
+/* Libreria per le liste circolari doppiamente concatenate con elemento fittizio. */
 
 int listaVuotaDummy(dummyList dum);
 /*prende in ingresso un puntatore a lista doppiamente puntata circolare con elemento fittizio
