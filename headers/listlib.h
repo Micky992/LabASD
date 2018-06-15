@@ -1,5 +1,5 @@
-#ifndef LISTLIB_H
-#define LISTLIB_H
+#ifndef LIST_LIB_H
+#define LIST_LIB_H
 
 typedef struct elem elem;
 /*un elem e' un nodo, elemento costitutivo di una lista*/
@@ -44,4 +44,4 @@ int controllaOrdine(lista top);
 /*data una lista verifica che gli elementi siano in ordine crescente in senso largo
 ritorna 1 se lo sono, 0 se no*/
 
-#endif // LISTLIB_H
+#endif // LIST_LIB_H

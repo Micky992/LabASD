@@ -1,5 +1,5 @@
-#ifndef QUEUELIB_H
-#define QUEUELIB_H
+#ifndef QUEUE_LIB_H
+#define QUEUE_LIB_H
 
 typedef struct queue queue;
 /*la queue e' una struttura dati FIFO, il primo intero inserito sara' il primo estratto

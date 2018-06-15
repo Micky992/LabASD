@@ -1,5 +1,5 @@
-#ifndef ABRLIB_H
-#define ABRLIB_H
+#ifndef ABR_LIB_H
+#define ABR_LIB_H
 
 typedef struct nodo nodo;
 

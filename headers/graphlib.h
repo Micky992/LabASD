@@ -1,5 +1,5 @@
-#ifndef GRAPHLIB_H
-#define GRAPHLIB_H
+#ifndef GRAPH_LIB_H
+#define GRAPH_LIB_H
 
 typedef struct arco arco;
 

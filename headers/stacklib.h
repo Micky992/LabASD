@@ -1,5 +1,5 @@
-#ifndef STACKLIB_H
-#define STACKLIB_H
+#ifndef STACK_LIB_H
+#define STACK_LIB_H
 
 typedef struct stack stack;
 /*lo stack e' una struttura dati LIFO, l'ultimo intero inserito sara' il primo estratto

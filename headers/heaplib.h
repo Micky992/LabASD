@@ -1,5 +1,5 @@
-#ifndef HEAPLIB_H
-#define HEAPLIB_H
+#ifndef HEAP_LIB_H
+#define HEAP_LIB_H
 
 void riempi(int *array, int dimensione);
 //dato un array, prompta l'utente per [dimensione] interi da inserire nell'array
