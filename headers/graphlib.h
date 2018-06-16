@@ -1,6 +1,8 @@
 #ifndef GRAPH_LIB_H
 #define GRAPH_LIB_H
 
+//includere srand((unsigned int)time(0)) nel main se si fa uso di randomizzaGrafo
+
 typedef struct arco arco;
 
 typedef struct grafo grafo;
@@ -51,5 +53,8 @@ int rimuoviVertice(grafo *g, int vertice);
 *ritorna 1 se il vertice e' stato eliminato, 0 altrimenti
 */
 void randomizzaGrafo(grafo *g);
-/*Aggiunge archi pseudo-randomicamente nel grafo puntato da "g", se viene passato un puntatore NULL viene stampato un messaggio di errore.*/
+/*prende un puntatore a grafo
+*se il grafo non e' vuoto
+*aggiunge archi pseudo-randomicamente nel grafo puntato da g
+*/
 #endif

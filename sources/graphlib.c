@@ -310,7 +310,6 @@ int rimuoviVertice(grafo *g, int vertice){
 
 void randomizzaGrafo(grafo *g){
   int j, z;
-  srand(time(0));
 
   if(!grafoVuoto(g)){
 
@@ -321,8 +320,10 @@ void randomizzaGrafo(grafo *g){
         }
       }
     }
+
   }else{
-    printf("ERRORE in randomizzaGrafo: il puntatore a grafo passato alla funzione e' NULL.\n");
+    printf("ERRORE in randomizzaGrafo: Il grafo e' vuoto.\n");
   }
+
   return;
 }
