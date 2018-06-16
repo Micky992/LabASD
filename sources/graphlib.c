@@ -193,9 +193,30 @@ int rimuoviArco(grafo *g, int partenza, int arrivo){
   return ret;
 }
 
-int esisteArco(grafo *g, int i, int j){//TODO scrivere funzione esisteArco
-  printf("TODO scrivere funzione esisteArco\n");
-  return -1;
+int esisteArco(grafo *g, int i, int j){
+
+  int ret = 0;
+  arco *curr;
+
+  if(!grafoVuoto(g)){
+    if(i <= g->n_vertici && j <= g->n_vertici){
+
+      curr = g->adiacenti[i];
+      while(curr != NULL && ret == 0){
+
+        if(curr->key == j){
+          ret = 1;
+        }
+        curr = curr->next;
+      }
+    }else{
+      printf("ERRORE in esisteArco: vertice di partenza o arrivo fuori dal range\n");
+    }
+  }else{
+    printf("ERRORE in esisteArco: grafo vuoto\n");
+  }
+
+  return ret;
 }
 
 int esisteVertice(grafo *g, int v){
