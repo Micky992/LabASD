@@ -379,6 +379,33 @@ int rimuoviVertice(grafo *g, int vertice){
   return ret;
 }
 
+void randomizzaGrafoPesato(grafo *g, int massimo){
+
+  int j, z;
+
+  if(!grafoVuoto(g)){
+    if(g->pesato == 1){
+      if(massimo > 0){
+        for(j = 0; j < numeroVertici(g); j++){
+          for(z = 0; z < numeroVertici(g); z++){
+            if(rand() % 2 == 1){
+              aggiungiArcoPesato(g, j, z, rand() % (massimo+1));
+            }
+          }
+        }
+      }else{
+        printf("ERRORE in randomizzaGrafoPesato: massimo negativo\n");
+      }
+    }else{
+      printf("ERRORE in randomizzaGrafoPesato: il grafo non e' pesato\n");
+    }
+  }else{
+    printf("ERRORE in randomizzaGrafoPesato: Il grafo e' vuoto\n");
+  }
+
+  return;
+}
+
 void randomizzaGrafo(grafo *g){
   int j, z;
 

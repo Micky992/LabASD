@@ -73,4 +73,14 @@ int aggiungiArcoPesato(grafo *g, int partenza, int arrivo, int peso);
 *aggiunge l'arco da partenza ad arrivo nel grafo con peso
 *ritorna 1 se l'arco e' stato inserito o era gia' presente, 0 altrimenti. Il peso di un arco preesistente non viene modificato.
 */
+int pesoArco(grafo *g, int partenza, int arrivo);
+/*prende un grafo e due interi rappresentanti vertici del grafo
+*se il grafo non e' vuoto e esiste un arco fra partenza e arrivo
+*ritorna il peso dell'arco, 0 se il grafo non e' pesato
+*/
+void randomizzaGrafoPesato(grafo *g, int massimo);
+/*prende un puntatore a grafo e un intero
+*se il grafo non e' vuoto, e' pesato e il valore di massimo non e' negativo
+*aggiunge archi pesati nel grafo puntato da g con peso compreso fra 0 e massimo
+*/
 #endif
