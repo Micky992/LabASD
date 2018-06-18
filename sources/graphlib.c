@@ -5,18 +5,20 @@
 typedef struct arco{
   int key;
   struct arco *next;
+  int peso;
 }arco;
 
 typedef struct grafo{
   int n_vertici;
   arco **adiacenti;
+  int pesato;
 }grafo;
 
 int grafoVuoto(grafo *g){
     return (g == NULL);
 }
 
-int nuovoGrafo(int vertici, grafo **g){
+int nuovoGrafo(int vertici, grafo **g, int pesato){
 
   grafo *nuovo;
   int ret = 0;//inizializzata a 0 per gestire implicitamente i casi in cui non fosse possibile allocare memoria
@@ -32,6 +34,12 @@ int nuovoGrafo(int vertici, grafo **g){
       if(nuovo->adiacenti != NULL){//se ha allocato il vettore di liste
         for(i = 0; i < vertici; i++){//pone tutte le liste a NULL
           nuovo->adiacenti[i] = NULL;
+        }
+
+        if(pesato == 0){
+          nuovo->pesato = 0;
+        }else{
+          nuovo->pesato = 1;
         }
 
         *g = nuovo;//pone il valore del puntatore parametro alla posizione del grafo allocato
@@ -62,7 +70,11 @@ void stampaGrafo(grafo *g){
       curr = g->adiacenti[i];
 
       while(curr != NULL){
-        printf("%d -> %d\n", i, curr->key);
+        printf("%d -", i);
+        if(g->pesato == 1){
+          printf("-%d-", curr->peso);
+        }
+        printf("> %d\n", curr->key);
         curr = curr->next;
       }
     }
@@ -73,13 +85,18 @@ void stampaGrafo(grafo *g){
   return;
 }
 
-arco *nuovoArco(int destinazione){
+arco *nuovoArco(int destinazione, int peso){
 
   arco *nuovo = NULL;
 
   nuovo = (arco*)malloc(sizeof(arco));
-  nuovo->key = destinazione;
-  nuovo->next = NULL;
+  if(nuovo != NULL){
+    nuovo->key = destinazione;
+    nuovo->next = NULL;
+    nuovo->peso = peso;
+  }else{
+    printf("ERRORE: memoria insufficiente\n");
+  }
 
   return nuovo;
 }
@@ -117,37 +134,54 @@ int numeroArchi(grafo *g){
   return ret;
 }
 
-int aggiungiArco(grafo *g, int partenza, int arrivo){
+int aggiungiArcoPesato(grafo *g, int partenza, int arrivo, int peso){
 
   arco *curr;
   int ret = 0;
 
   if(!grafoVuoto(g)){
 
-    if(partenza < g->n_vertici && arrivo < g->n_vertici){
+    if(g->pesato == 1 || peso == 0){
 
-      curr = g->adiacenti[partenza];//imposta curr al primo arco uscente da partenza
-      while(curr != NULL && curr->next != NULL && curr->key != arrivo){
-        /*arriva alla fine della lista di adiacenza di partenza
-        o si ferma prima se l'arco con arrivo uguale e' gia' presente*/
-        curr = curr->next;
-      }
+      if(partenza < g->n_vertici && arrivo < g->n_vertici){
 
-      if(curr == NULL){//se la lista di adiacenza era vuota
-        g->adiacenti[partenza] = nuovoArco(arrivo);//crea un arco e modifica il puntatore nell'array perche' punti a questo
-        ret = 1;
-      }else if(curr->next == NULL){//se e' arrivato alla fine della lista
-        curr->next = nuovoArco(arrivo);//crea un arco e lo imposta come successivo dell'ultimo
-        ret = 1;
-      }else{//l'arco era gia' presente
-        printf("L'arco e' gia' presente nel grafo\n");
-        ret = 1;
+        curr = g->adiacenti[partenza];//imposta curr al primo arco uscente da partenza
+        while(curr != NULL && curr->next != NULL && curr->key != arrivo){
+          /*arriva alla fine della lista di adiacenza di partenza
+          o si ferma prima se l'arco con arrivo uguale e' gia' presente*/
+          curr = curr->next;
+        }
+
+        if(curr == NULL){//se la lista di adiacenza era vuota
+          g->adiacenti[partenza] = nuovoArco(arrivo, peso);//crea un arco e modifica il puntatore nell'array perche' punti a questo
+          ret = 1;
+        }else if(curr->next == NULL){//se e' arrivato alla fine della lista
+          curr->next = nuovoArco(arrivo, peso);//crea un arco e lo imposta come successivo dell'ultimo
+          ret = 1;
+        }else{//l'arco era gia' presente
+          printf("L'arco %d -> %d e' gia' presente nel grafo\n", partenza, arrivo);
+          ret = 1;
+        }
+      }else{
+        printf("Non esiste il vertice di partenza o di arrivo\n");
       }
     }else{
-      printf("Non esiste il vertice di partenza o di arrivo\n");
+      printf("Impossibile inserire arco pesato in grafo non pesato\n");
     }
   }else{
-    printf("Il grafo e' vuoto");
+    printf("Il grafo e' vuoto\n");
+  }
+  return ret;
+}
+
+int aggiungiArco(grafo *g, int partenza, int arrivo){
+
+  int ret = 0;
+
+  if(g->pesato == 0){
+    ret = 0;
+  }else{
+    ret = aggiungiArcoPesato(g,partenza,arrivo,0);
   }
   return ret;
 }
@@ -193,18 +227,18 @@ int rimuoviArco(grafo *g, int partenza, int arrivo){
   return ret;
 }
 
-int esisteArco(grafo *g, int i, int j){
+int esisteArco(grafo *g, int partenza, int arrivo){
 
   int ret = 0;
   arco *curr;
 
   if(!grafoVuoto(g)){
-    if(i <= g->n_vertici && j <= g->n_vertici){
+    if(partenza <= g->n_vertici && arrivo <= g->n_vertici){
 
-      curr = g->adiacenti[i];
+      curr = g->adiacenti[partenza];
       while(curr != NULL && ret == 0){
 
-        if(curr->key == j){
+        if(curr->key == arrivo){
           ret = 1;
         }
         curr = curr->next;
@@ -214,6 +248,29 @@ int esisteArco(grafo *g, int i, int j){
     }
   }else{
     printf("ERRORE in esisteArco: grafo vuoto\n");
+  }
+
+  return ret;
+}
+
+int pesoArco(grafo *g, int partenza, int arrivo){
+
+  arco *curr = NULL;
+  int ret = 0;
+
+  if(!grafoVuoto(g)){
+    if(esisteArco(g, partenza, arrivo)){//forse esisteArco dovrebbe anche in qualche modo ritornare un puntatore all'arco se esiste?
+
+      curr = g->adiacenti[partenza];
+      while(curr->key != arrivo){
+        curr = curr->next;
+      }
+      ret = curr->peso;
+    }else{
+      printf("ERRORE in pesoArco: l'arco non esiste\n");
+    }
+  }else{
+    printf("ERRORE in pesoArco: grafo vuoto\n");
   }
 
   return ret;
