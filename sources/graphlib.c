@@ -176,14 +176,7 @@ int aggiungiArcoPesato(grafo *g, int partenza, int arrivo, int peso){
 
 int aggiungiArco(grafo *g, int partenza, int arrivo){
 
-  int ret = 0;
-
-  if(g->pesato == 0){
-    ret = 0;
-  }else{
-    ret = aggiungiArcoPesato(g,partenza,arrivo,0);
-  }
-  return ret;
+  return aggiungiArcoPesato(g,partenza,arrivo,0);
 }
 
 int rimuoviArco(grafo *g, int partenza, int arrivo){
