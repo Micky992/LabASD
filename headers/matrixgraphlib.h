@@ -37,8 +37,10 @@ int rimuoviArcoMatrix(grafomat *g, int partenza, int arrivo);
 int esisteArcoMatrix(grafomat *g, int i, int j);
 /*prende un puntatore a grafo e due interi rappresentanti due vertici del grafo e controlla se è presente un arco che va dal vertice i al vertice j, in tal caso restituisce 1, altrimenti 0*/
 int esisteVerticeMatrix(grafomat *g, int v);
-/*prende un puntatore a grafo e un intero rappresentante un vertice e controlla se questo vertice è presente nel grafo, se è presente restituisce 1, 0 altrimenti*/
-int aggiungiVerticeMatrix(grafomat *g);
+/*prende un puntatore a grafo e un intero rappresentante un vertice
+*se il grafo non e' vuoto
+*ritorna 1 se il vertice e' presente nel grafo, 0 altrimenti
+*/
 /*prende un puntatore a grafo
 *se il grafo non e' vuoto, aggiunge un vertice
 *ritorna 1 se il vertice e' stato inserito, 0 altrimenti

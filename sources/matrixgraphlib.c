@@ -36,10 +36,10 @@ int nuovoGrafoMatrix(int vertici, grafomat **g){   //Funzione che costruisce un 
         printf("ERRORE in nuovoGrafoMatrix: impossibile allocare memoria per matrice di adiacenza\n");
         free(nuovo);
       }
-    }else {
+    }else{
       printf("ERRORE in nuovoGrafoMatrix: impossibile allocare memoria per grafo\n");
     }
-  }else {
+  }else{
     printf("ERRORE in nuovoGrafoMatrix: impossibile creare grafo di 0 vertici\n");
   }
 
@@ -94,6 +94,7 @@ int numeroArchiMatrix(grafomat *g){
 int modificaArcoMatrix(grafomat *g, int partenza, int arrivo, int op){
 
   int ret = 0;
+
   if(!grafoVuotoMatrix(g)){
     if(partenza < g->n_vertici && arrivo < g->n_vertici){
       g->adiacenti[(g->n_vertici * partenza) + arrivo] = op;
@@ -131,9 +132,23 @@ int indiceMatrix(grafomat *g, int i, int j){//restituisce l'indice della locazio
   return (i * g->n_vertici) + j;
 }
 
-int esisteArco(grafomat *g, int i, int j){//restituisce 1 se l'arco dal vertice i al vertice j esiste, 0 altrimenti
-  int ret;
-  ret = g->adiacenti[indiceMatrix(g, i, j)];
+int esisteArcoMatrix(grafomat *g, int partenza, int arrivo){//restituisce 1 se l'arco dal vertice partenza al vertice arrivo esiste, 0 altrimenti
+  int ret = 0;
+
+  if(!grafoVuotoMatrix(g)){
+    if(partenza <= g->n_vertici && arrivo <= g->n_vertici){
+
+      ret = g->adiacenti[indiceMatrix(g, partenza, arrivo)];
+
+    }else{
+      printf("ERRORE in esisteArco: vertice di partenza o arrivo fuori dal range\n");
+    }
+  }else{
+    printf("ERRORE in esisteArco: grafo vuoto\n");
+  }
+
+  return ret;
+}
   return ret;
 }
 
@@ -207,8 +222,9 @@ int rimuoviVerticeMatrix(grafomat *g, int vertice){
 }
 
 void randomizzaGrafoMatrix(grafomat *g){
+
   int j, z;
-  srand(time(0));
+
   if(!grafoVuotoMatrix(g)){
 
     for(j = 0; j < numeroVerticiMatrix(g); j++){
@@ -219,7 +235,7 @@ void randomizzaGrafoMatrix(grafomat *g){
       }
     }
   }else{
-    printf("ERRORE in randomizzaGrafoMatrix: grafo vuoto.\n");
+    printf("ERRORE in randomizzaGrafoMatrix: Il grafo e' vuoto.\n");
   }
   return;
 }

@@ -74,9 +74,10 @@ void stampaGrafo(grafo *g){
         if(g->pesato == 1){
           printf("-%d-", curr->peso);
         }
-        printf("> %d\n", curr->key);
+        printf("> %d\t", curr->key);
         curr = curr->next;
       }
+      printf("\n");
     }
   }else{
     printf("ERRORE in stampaGrafo: grafo vuoto\n");
@@ -368,13 +369,13 @@ int rimuoviVertice(grafo *g, int vertice){
         g->n_vertici = g->n_vertici - 1;//riduce il numero di vertici nella struttura grafo
 
       }else{
-        printf("ERRORE in eliminaVertice: Impossibile allocare memoria per nuovo vettore delle adiacenze\n");
+        printf("ERRORE in rimuoviVertice: Impossibile allocare memoria per nuovo vettore delle adiacenze\n");
       }
     }else{
-      printf("ERRORE in eliminaVertice: Vertice da eliminare fuori dal range del grafo\n");
+      printf("ERRORE in rimuoviVertice: Vertice da rimuovere fuori dal range del grafo\n");
     }
   }else{
-    printf("ERRORE in eliminaVertice: Il grafo e' vuoto\n");
+    printf("ERRORE in rimuoviVertice: Il grafo e' vuoto\n");
   }
   return ret;
 }
