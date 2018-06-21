@@ -5,13 +5,15 @@
 typedef struct grafomat{
   int n_vertici;
   int *adiacenti;
+  int *pesi;
+  int pesato;
 }grafomat;
 
 int grafoVuotoMatrix(grafomat *g){
   return (g == NULL);
 }
 
-int nuovoGrafoMatrix(int vertici, grafomat **g){   //Funzione che costruisce un grafo con matrice di adiacenza.
+int nuovoGrafoMatrix(int vertici, grafomat **g, int pesato){   //Funzione che costruisce un grafo con matrice di adiacenza.
 
   grafomat *nuovo;
   int ret = 0;
@@ -29,10 +31,27 @@ int nuovoGrafoMatrix(int vertici, grafomat **g){   //Funzione che costruisce un 
           nuovo->adiacenti[i] = 0;
         }
 
-        *g = nuovo;//il puntatore parametro viene fatto puntare al grafo allocato
-        ret = 1;//aggiorna il valore che segnala l'esito della funzione
-      }
-      else{
+        if(pesato != 0){
+
+          nuovo->pesi = (int*)calloc( (vertici * vertici), sizeof(int));
+
+          if(nuovo->pesi != NULL){
+            nuovo->pesato = 1;
+            *g = nuovo;
+            ret = 1;
+          }else{
+            printf("ERRORE in nuovoGrafoMatrix: impossibile allocare memoria per matrice dei pesi\n");
+            free(nuovo->adiacenti);
+            free(nuovo);
+          }
+
+        }else{//se il grafo non era pesato finisce qui
+          *g = nuovo;//il puntatore parametro viene fatto puntare al grafo allocato
+          ret = 1;//aggiorna il valore che segnala l'esito della funzione
+          nuovo->pesato = 0;
+          nuovo->pesi = NULL;
+        }
+      }else{
         printf("ERRORE in nuovoGrafoMatrix: impossibile allocare memoria per matrice di adiacenza\n");
         free(nuovo);
       }
@@ -44,6 +63,19 @@ int nuovoGrafoMatrix(int vertici, grafomat **g){   //Funzione che costruisce un 
   }
 
   return ret;     //Ritorna 1 se la costruzione del grafo è andata a buon fine, 0 altrimenti.
+}
+
+int isPesatoMatrix(grafomat *g){
+
+  int ret = 0;
+
+  if(!grafoVuotoMatrix(g)){
+    ret = g->pesato;
+  }else{
+    printf("ERRORE in isPesatoMatrix: Il grafo e' vuoto\n");
+  }
+
+  return ret;
 }
 
 int numeroVerticiMatrix(grafomat *g){
@@ -66,10 +98,17 @@ void stampaGrafoMatrix(grafomat *g){
     for(i = 0; i < numeroVerticiMatrix(g); i++){
       for(j = 0; j < numeroVerticiMatrix(g) ; j++){
         if(g->adiacenti[(i * numeroVerticiMatrix(g)) + j]){
-          printf("%d -> %d\n", i, j);
+          printf("%d -", i);
+          if(g->pesato == 1){
+            printf("-%d-", g->pesi[(i * numeroVerticiMatrix(g)) + j]);
+          }
+          printf("> %d\t", j);
         }
       }
+      printf("\n");
     }
+  }else{
+    printf("ERRORE in stampaGrafoMatrix: grafo vuoto\n");
   }
   return;
 }
@@ -91,19 +130,29 @@ int numeroArchiMatrix(grafomat *g){
   return ret;
 }
 
-int modificaArcoMatrix(grafomat *g, int partenza, int arrivo, int op){
+int modificaArcoMatrix(grafomat *g, int partenza, int arrivo, int op, int peso){
 
   int ret = 0;
 
   if(!grafoVuotoMatrix(g)){
-    if(partenza < g->n_vertici && arrivo < g->n_vertici){
-      g->adiacenti[(g->n_vertici * partenza) + arrivo] = op;
-      ret = 1;
+    if(g->pesato == 1 || peso == 0){//controlla se si sta cercando di inserire arco pesato in grafo non pesato
+      if(partenza < g->n_vertici && arrivo < g->n_vertici){//esistono i vertici di partenza e arrivo
+
+        g->adiacenti[(g->n_vertici * partenza) + arrivo] = op;//aggiunge o elimina l'arco a seconda di op
+
+        if(g->pesato == 1){//se il grafo e' pesato
+          g->pesi[(g->n_vertici * partenza) + arrivo] = peso;//aggiunge il peso alla matrice dei pesi o lo imposta a zero nel caso di un'eliminazione
+        }
+        ret = 1;
+
+      }else{
+        printf("ERRORE: Vertice di partenza o arrivo non presenti\n");
+      }
     }else{
-      printf("ERRORE in modificaArcoMatrix: vertice di partenza o arrivo non presenti\n");
+      printf("ERRORE: Impossibile inserire arco pesato in grafo non pesato\n");
     }
   }else{
-    printf("ERRORE in modificaArcoMatrix: grafo vuoto\n");
+    printf("ERRORE: grafo vuoto\n");
   }
   return ret;
 }
@@ -111,19 +160,41 @@ int modificaArcoMatrix(grafomat *g, int partenza, int arrivo, int op){
 int aggiungiArcoMatrix(grafomat *g, int partenza, int arrivo){
 
   int ret = 1;
-  if(!modificaArcoMatrix(g, partenza, arrivo, 1)){
-    printf("Impossibile aggiungere arco.\n");
-    ret = 0;
+  if(g->adiacenti[(partenza * g->n_vertici) + arrivo] == 0){
+    if(!modificaArcoMatrix(g, partenza, arrivo, 1, 0)){
+      printf("Impossibile aggiungere arco.\n");
+      ret = 0;
+    }
+  }else{
+    printf("L'arco %d -> %d e' gia' presente nel grafo\n", partenza, arrivo);
   }
   return ret;//Ritorna 1 se l'arco è stato aggiunto o è già presente, 0 altrimenti.
+}
+
+int aggiungiArcoPesatoMatrix(grafomat *g, int partenza, int arrivo, int peso){
+
+  int ret = 1;
+  if(g->adiacenti[(partenza * g->n_vertici) + arrivo] == 0){//evita di chiamare modificaArcoMatrix per non modificare il peso dell'arco e mantenere il comportamento della libreria con liste
+    if(!modificaArcoMatrix(g, partenza, arrivo, 1, peso)){
+      printf("Impossibile aggiungere arco\n");
+      ret = 0;
+    }
+  }else{
+    printf("L'arco %d -> %d e' gia' presente nel grafo\n", partenza, arrivo);
+  }
+  return ret;
 }
 
 int rimuoviArcoMatrix(grafomat *g, int partenza, int arrivo){
 
     int ret = 1;
-    if(!modificaArcoMatrix(g, partenza, arrivo, 0)){
-      printf("Impossibile rimuovere arco.\n");
-      ret = 0;
+    if(g->adiacenti[(partenza * g->n_vertici) + arrivo] == 1){
+      if(!modificaArcoMatrix(g, partenza, arrivo, 0, 0)){
+        printf("Impossibile rimuovere arco.\n");
+        ret = 0;
+      }
+    }else{
+      printf("L'arco non e' presente nel grafo\n");
     }
     return ret;//Ritorna 1 se l'arco è stato rimosso o è non era presente, 0 altrimenti.
 }
@@ -149,75 +220,135 @@ int esisteArcoMatrix(grafomat *g, int partenza, int arrivo){//restituisce 1 se l
 
   return ret;
 }
+
+int pesoArcoMatrix(grafomat *g, int partenza, int arrivo){
+
+  int ret = 0;
+
+  if(!grafoVuotoMatrix(g)){
+    if(esisteArcoMatrix(g, partenza, arrivo)){
+
+      if(g->pesato == 1){//implicitamente se il grafo non e' pesato ritorna 0
+        ret = g->pesi[(partenza * g->n_vertici) + arrivo];
+      }
+
+    }else{
+      printf("ERRORE in pesoArcoMatrix: l'arco non esiste\n");
+    }
+  }else{
+    printf("ERRORE in pesoArcoMatrix: grafo vuoto\n");
+  }
+
   return ret;
 }
 
-int esisteVerticeMatrix(grafomat *g, int v){//restistuisce 1 se il vertice è presente nel grafo, 0 altrimenti
-  return (v < g->n_vertici);
+int esisteVerticeMatrix(grafomat *g, int v){//restituisce 1 se il vertice è presente nel grafo, 0 altrimenti
+
+  int ret = 0;
+
+  if(!grafoVuotoMatrix(g)){
+    ret = (v < g->n_vertici);
+  }else{
+    printf("ERRORE in esisteVerticeMatrix: Il grafo e' vuoto\n");
+  }
+
+  return ret;
 }
 
 int aggiungiVerticeMatrix(grafomat *g){
+
   int ret = 0;
-  int vertici;
-  int i = 0, j = 0;
+  int i, j;
   int *matrice = NULL;
+  int *pesi = NULL;
+  int vertici;
 
   if(!grafoVuotoMatrix(g)){
+
     vertici = g->n_vertici + 1;
     matrice = (int *)calloc(vertici*vertici, sizeof(int));
+    if(g->pesato == 1){//alloca nuova matrice di pesi solo se il grafo e' pesato
+      pesi = (int*)calloc(vertici*vertici, sizeof(int));
+    }
 
-    if (matrice!=NULL){
+    if(matrice != NULL && (g->pesato == 0 || pesi != NULL)){//se la memoria e' stata allocata per entrambi o per adiacenti in grafo non pesato
 
+      i = j = 0;
       while(j < g->n_vertici * g->n_vertici){
-        if(i == 0 || (i % vertici) != 0){
-          matrice[i] = g->adiacenti[j];
-          j++;
-          i++;
-        }else{
-          matrice[i] = 0;
-          i++;
+
+        if(j != 0 && (j % g->n_vertici) == 0){//se j arriva su un multiplo di n_vertici
+          i++;//aumenta i prima di copiare per essere nella posizione giusta
         }
+
+        matrice[i] = g->adiacenti[j];
+        if(g->pesato == 1){
+          pesi[i] = g->pesi[j];
+        }
+        j++;
+        i++;
       }
+
       free(g->adiacenti);
       g->adiacenti = matrice;
+      if(g->pesato == 1){
+        free(g->pesi);
+        g->pesi = pesi;
+      }
       g->n_vertici = vertici;
       ret = 1;
     }else{
-      printf("ERRORE in aggiungiVerticeMatrix: impossibile allocare nuova matrice di adiacenza.\n");
+      printf("ERRORE in aggiungiVerticeMatrix: impossibile allocare nuova matrice di adiacenza o nuova matrice dei pesi\n");
     }
   }else{
-    printf("ERRORE in aggiungiArcoMatrix: grafo vuoto.\n");
+    printf("ERRORE in aggiungiVerticeMatrix: grafo vuoto.\n");
   }
   return ret;
 }
 
 int rimuoviVerticeMatrix(grafomat *g, int vertice){
+
   int i = 0, j = 0, ret = 0;
   int *matrice = NULL;
+  int *pesi;
   int vertici;
+
   if(!grafoVuotoMatrix(g)){
+
     vertici = g->n_vertici - 1;
     matrice = (int *)malloc(vertici * vertici * sizeof(int));
+    pesi = (int*)malloc(vertici * vertici * sizeof(int));
+
     if(matrice != NULL){
       while(j < vertici * vertici){
-        if(i % g->n_vertici == vertice){ //tutti gli archi che va nel vertice da eliminare
+
+        if(i % g->n_vertici == vertice){ //tutti gli archi che vanno nel vertice da eliminare
           i++;
-        }
-        else if(i == vertice * g->n_vertici){ //primo arco del vertice da eliminare
+        }else if(i == vertice * g->n_vertici){ //primo arco del vertice da eliminare
           i += g->n_vertici;
         }else{
           matrice[j] = g->adiacenti[i];
+          if(g->pesato == 1){
+            pesi[j] = g->pesi[i];
+          }
           j++;
           i++;
         }
       }
+
+      free(g->adiacenti);
+      g->adiacenti = matrice;
+      if(g->pesato == 1){
+        free(g->pesi);
+        g->pesi = pesi;
+      }
+      g->n_vertici = vertici;
       ret = 1;
-    }
-    else{
+    }else{
       printf("ERRORE in rimuoviVerticeMatrix: impossibile allocare memoria per nuova matrice di adiacenza.\n");}
   }else{
     printf("ERRORE in rimuoviVerticeMatrix: grafo vuoto.\n");
   }
+
   return ret;
 }
 
@@ -237,5 +368,32 @@ void randomizzaGrafoMatrix(grafomat *g){
   }else{
     printf("ERRORE in randomizzaGrafoMatrix: Il grafo e' vuoto.\n");
   }
+  return;
+}
+
+void randomizzaGrafoPesatoMatrix(grafomat *g, int massimo){
+
+  int i, j;
+
+  if(!grafoVuotoMatrix(g)){
+    if(g->pesato == 1){
+      if(massimo > 0){
+        for(i = 0; i < g->n_vertici; i++){
+          for(j = 0; j < g->n_vertici; j++){
+            if(rand() % 2 == 1){
+              aggiungiArcoPesatoMatrix(g, i, j, rand() % (massimo+1));
+            }
+          }
+        }
+      }else{
+        printf("ERRORE in randomizzaGrafoPesatoMatrix: massimo negativo\n");
+      }
+    }else{
+      printf("ERRORE in randomizzaGrafoPesatoMatrix: il grafo non e' pesato\n");
+    }
+  }else{
+    printf("ERRORE in randomizzaGrafoPesatoMatrix: Il grafo e' vuoto\n");
+  }
+
   return;
 }

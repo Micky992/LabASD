@@ -58,6 +58,19 @@ int nuovoGrafo(int vertici, grafo **g, int pesato){
   return ret;//ritorna 1 o 0 a seconda che la creazione sia andata a buon fine o meno
 }
 
+int isPesato(grafo *g){
+
+  ret = 0;
+
+  if(!grafoVuoto(g)){
+    ret = g->pesato;
+  }else{
+    printf("ERRORE in isPesato: Il grafo e' vuoto\n");
+  }
+
+  return ret;
+}
+
 void stampaGrafo(grafo *g){
 
   int i;

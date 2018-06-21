@@ -21,6 +21,11 @@ int nuovoGrafo(int vertici, grafo **g, int pesato);
 *il puntatore passato puntera' alla memoria allocata per il grafo
 *restituisce 0 se non e' possibile allocare memoria per il grafo o se si cerca di creare un grafo con 0 vertici, 1 altrimenti
 */
+int isPesato(grafo *);
+/*prende un puntatore a grafo
+*se il grafo non e' vuoto
+*restituisce 1 se il grafo e' pesato, 0 altrimenti
+*/
 void stampaGrafo(grafo *g);
 /*Prende in ingresso un puntatore a grafo
 *stampa in stdout gli archi del grafo puntato da g completi di peso qualora il grafo fosse pesato
