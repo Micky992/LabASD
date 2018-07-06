@@ -5,26 +5,51 @@ typedef struct delem delem;
 
 typedef delem* dlista;
 
+/*
+*******************************************************
+*una lista vuota e' rappresentata con un puntatore dlista contenente NULL
+*Inizializzare sempre a NULL i puntatori a dliste vuote
+*******************************************************
+*/
+
 void stampaListaDop(dlista top);
-/*Stampa la lista doppiamente concatenata.
+/*data una lista doppiamente puntata
+*stampa in stdout la lista
 */
 dlista newElemDop(int k);
-/*Crea un nuovo nodo di lista doppiamente concatenata e inserisce l'intero k nel campo info.
+/*dato un intero k
+*alloca spazio per un nuovo nodo di lista doppiamente puntata contenente l'intero
+*restituisce un puntatore al nodo così creato
 */
-dlista precedente(dlista nodo);
-/*Prende un puntatore a nodo di una lista doppaimente concatenata e restituisce il puntatore contenuto nell'elemento prev del nodo.
+dlista precedenteDop(dlista nodo);
+/*prende un puntatore a nodo di lista doppiamente puntata
+*se nodo non e' NULL
+*restituisce un puntatore all'elemento precedente
 */
-dlista successivo(dlista nodo);
-/*restituisce il next del nodo puntato dal puntatore "nodo"*/
-
-int elemento(dlista nodo);
-/*restituisce l'elemento contenuto nel nodo*/
-
+dlista successivoDop(dlista nodo);
+/*prende un puntatore a nodo di lista doppiamente puntata
+*se nodo non e' NULL
+*restituisce un puntatore all'elemento successivo
+*/
+int valoreDiDop(dlista nodo);
+/*prende un puntatore a nodo di lista doppiamente puntata
+*se nodo non e' NULL
+*restituisce l'intero contenuto nel nodo
+*/
 dlista aggiungiInTestaDop(dlista top, int k);
-
-dlista aggiungiInCodaDop(dlista top, int k);
-
-dlista eliminaTopDop(dlista top);
-/*Elimina il top della lista puntata da "top". Restituisce il nuovo top.
+/*data una lista doppiamente puntata e un intero
+*aggiunge un nodo contenente l'intero in testa alla lista
+*restituisce il nuovo top della lista
 */
+dlista aggiungiInCodaDop(dlista top, int k);
+/*data una lista doppiamente puntata e un intero
+*aggiunge un nodo contenente l'intero in coda alla lista
+*restituisce il top della lista eventualmente modificato
+*/
+dlista eliminaTopDop(dlista top);
+/*data una lista doppiamente puntata
+*elimina il top della lista
+*restituisce il nuovo top, NULL nel caso la lista fosse gia' vuota o contenesse un solo nodo
+*/
+
 #endif DOUBLE_LIST_LIB_H
