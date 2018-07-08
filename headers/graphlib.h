@@ -9,6 +9,13 @@ typedef struct arco arco;
 
 typedef struct grafo grafo;
 
+/*
+*******************************************************
+*un grafo vuoto e' rappresentato con un puntatore grafo contenente NULL
+*Per inizializzare un grafo e utilizzarlo, usare la funzione nuovoGrafo
+*******************************************************
+*/
+
 //Funzioni generali. Agiscono su grafi pesati o non
 
 int grafoVuoto(grafo *g);
@@ -20,6 +27,10 @@ int nuovoGrafo(int vertici, grafo **g, int pesato);
 *un valore di pesato diverso da 0 indica che il grafo creato sara' pesato
 *il puntatore passato puntera' alla memoria allocata per il grafo
 *restituisce 0 se non e' possibile allocare memoria per il grafo o se si cerca di creare un grafo con 0 vertici, 1 altrimenti
+*/
+void menuGrafo(grafo *g);
+/*prende un puntatore a grafo
+*permette di inserire o rimuovere archi dal grafo finche' non si sceglie di uscire
 */
 int isPesato(grafo *g);
 /*prende un puntatore a grafo

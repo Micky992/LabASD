@@ -1,6 +1,10 @@
 #ifndef DOUBLE_LIST_LIB_H
 #define DOUBLE_LIST_LIB_H
 
+//*******************************************************************************
+//includere srand((unsigned int)time(0)) nel main se si fa uso di randomizzaListaDop
+//*******************************************************************************
+
 typedef struct delem delem;
 
 typedef delem* dlista;
@@ -12,6 +16,10 @@ typedef delem* dlista;
 *******************************************************
 */
 
+dlista inizializzaListaDop(dlista top);
+/*data una lista doppiamente puntata
+*chiede all'utente quanti elementi vuole inserire in essa e, nel caso in cui siano più di 0, li inserisce.
+*/
 void stampaListaDop(dlista top);
 /*data una lista doppiamente puntata
 *stampa in stdout la lista
@@ -51,5 +59,9 @@ dlista eliminaTopDop(dlista top);
 *elimina il top della lista
 *restituisce il nuovo top, NULL nel caso la lista fosse gia' vuota o contenesse un solo nodo
 */
-
-#endif DOUBLE_LIST_LIB_H
+dlista randomizzaListaDop(dlista top, int numeroElementi, int valoreMax);
+/*data una lista doppiamente puntata e due interi
+*inserisce nella lista numeroElementi interi compresi fra 1 e valoreMax
+*restituisce il nuovo top della lista
+*/
+#endif //DOUBLE_LIST_LIB_H

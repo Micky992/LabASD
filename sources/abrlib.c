@@ -15,6 +15,31 @@ int alberoVuoto(albero radice){
   return (radice == NULL);
 }
 
+void inizializzaABR(albero *radice){
+
+  int scelta = -1;
+  int x;
+  int i = 0;
+
+  do{
+    printf("Quanti elementi inserire?: ");
+    scanf("%d", &scelta);
+  }while(scelta < 0);
+
+  while(i < scelta){
+    printf("inserire elemento %d: ", i+1);
+    scanf("%d", &x);
+
+    if(!inserisciInABR(radice, x)){
+      printf("Elemento già presente.\n");
+    }else{
+      i++;
+    }
+  }
+
+  return;
+}
+
 int valoreRadice(albero radice, int *val){
   int ret = 0;
 
@@ -123,27 +148,28 @@ int ricercaInABR(albero radice, int key){
   return ret;
 }
 
-void InserisciInABR(albero *radice, int e){
+int inserisciInABR(albero *radice, int e){
 
   int temp;
+  int ret = 1;
   albero x;
 
   if(!valoreRadice(*radice, &temp)){
     x = costruisciAlbero(e, NULL, NULL);
     if(x != NULL){
       *radice = x;
-  /*}else{
-      TODO aggiungi un qualche tipo di gestione dell'errore di memoria non allocata
-  */}
+    }else{
+      printf("ERRORE in inserisciInABR: impossibile allocare memoria\n");
+    }
   }else if(e < temp){
-    InserisciInABR(&((*radice)->sx), e);
+    inserisciInABR(&((*radice)->sx), e);
   }else if(e > temp){
-    InserisciInABR(&((*radice)->dx), e);
+    inserisciInABR(&((*radice)->dx), e);
   }else{
-    printf("Elemento gia' presente\n");
+    ret = 0;
   }
 
-  return;
+  return ret;
 }
 
 int minimoABR(albero radice){
@@ -189,6 +215,27 @@ void eliminaInABR(albero *radice, int e){
         eliminaInABR(&((*radice)->dx), minimo);
       }
     }
+  }
+
+  return;
+}
+
+void randomizzaABR(albero *radice, int numeroElementi, int valoreMax){
+
+  int i = 0;
+
+  if(alberoVuoto(*radice)){
+    if(numeroElementi <= valoreMax){
+      while(i < numeroElementi){
+        if(inserisciInABR(radice, ( rand() % valoreMax ) + 1) ){
+          i++;
+        }
+      }
+    }else{
+      printf("ERRORE in randomizzaABR: numeroElementi non puo' essere maggiore di valoreMax\n");
+    }
+  }else{
+    printf("ERRORE in randomizzaABR: l'albero di partenza deve essere vuoto\n");
   }
 
   return;

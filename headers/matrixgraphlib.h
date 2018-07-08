@@ -7,6 +7,13 @@
 
 typedef struct grafomat grafomat;
 
+/*
+*******************************************************
+*un grafo vuoto e' rappresentato con un puntatore grafomat contenente NULL
+*Per inizializzare un grafomat e utilizzarlo, usare la funzione nuovoGrafoMatrix
+*******************************************************
+*/
+
 //Funzioni generali. Agiscono su grafi pesati o non
 
 int grafoVuotoMatrix(grafomat *g);
@@ -18,6 +25,10 @@ int nuovoGrafoMatrix(int vertici, grafomat **g, int pesato);
 *un valore di pesato diverso da 0 indica che il grafo creato sarà pesato
 *il puntatore passato punterà alla memoria allocata per il grafo
 *restituisce 0 se non e' possibile allocare memoria per il grafo o se si cerca di creare un grafo con 0 vertici, 1 altrimenti
+*/
+void menuGrafoMatrix(grafomat *g);
+/*prende un puntatore a grafo
+*permette di inserire o rimuovere archi dal grafo finche' non si sceglie di uscire
 */
 int isPesatoMatrix(grafomat *g);
 /*prende un puntatore a grafo

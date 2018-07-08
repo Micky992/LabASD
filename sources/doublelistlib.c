@@ -10,6 +10,27 @@ typedef struct delem{
 
 typedef delem* dlista;
 
+dlista inizializzaListaDop(dlista top){
+
+  int scelta = -1;
+  int x, i;
+  dlista ret = top;
+
+  do{
+    printf("Quanti elementi inserire?: ");
+    scanf("%d", &scelta);
+  }while(scelta < 0);
+
+  for(i = 0; i < scelta; i++){
+    printf("inserire elemento %d: ", i+1);
+    scanf("%d", &x);
+    ret = aggiungiInCodaDop(ret, x);
+  }
+
+  return ret;
+}
+
+
 void stampaListaDop(dlista top){
 
   if(top != NULL){
@@ -86,7 +107,9 @@ dlista aggiungiInTestaDop(dlista top, int k){
 
     if(E != NULL){
       E->next = top;//inserisce la lista dopo il nodo creato
-      E->next->prev = E;
+      if(top != NULL){//se la lista conteneva altri elementi
+        E->next->prev = E;//il prev del primo vecchio elemento punta al nuovo top
+      }
     }
 
     return E; //ritorna la lista aggiornata, il valore ritornato dovra' essere assegnato a un puntatore lista per poter essere utilizzato
@@ -129,4 +152,16 @@ dlista eliminaTopDop(dlista top){
   }
 
   return top;
+}
+
+dlista randomizzaListaDop(dlista top, int numeroElementi, int valoreMax){
+
+  int i;
+  dlista ret = top;
+
+  for(i = 0; i < numeroElementi; i++){
+    ret = aggiungiInCodaDop(ret, ( rand() % valoreMax ) + 1);
+  }
+
+  return ret;
 }

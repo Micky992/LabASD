@@ -33,7 +33,7 @@ lista successivo (lista nodo){
   return ret;
 }
 
-int elemento(lista nodo)
+int valoreDi(lista nodo)
 {
   int ret = 0;
   if(nodo != NULL){
@@ -98,17 +98,4 @@ lista eliminaTop(lista top){
   }
 
   return top;
-}
-
-int controllaOrdine(lista top){
-
-  int ret = 1;
-
-  if(top != NULL && top->next != NULL){//se non si trova nel caso base implicito in cui la lista è vuota o contiene un solo elemento (in tal caso e' sempre ordinata)
-    if(top->info > top->next->info || !controllaOrdine(top->next)){//controlla se il top non è minore del successivo o il resto della lista non è ordinato
-      ret = 0;//solo se una delle condizioni e' vera la lista non e' ordinata
-    }
-  }
-
-  return ret;
 }

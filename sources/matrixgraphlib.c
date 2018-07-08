@@ -65,6 +65,52 @@ int nuovoGrafoMatrix(int vertici, grafomat **g, int pesato){   //Funzione che co
   return ret;     //Ritorna 1 se la costruzione del grafo è andata a buon fine, 0 altrimenti.
 }
 
+void menuGrafoMatrix(grafomat *g){
+
+  int i;
+  int scelta = -1, esci = 0;
+  int part, arr, peso = 0;
+
+  if(!grafoVuoto(g)){
+
+    while(esci == 0){
+
+      do{
+        printf("Seleziona operazione\n1 = aggiungiArco\n2 = rimuoviArco\n3 = esci\n");
+        scanf("%d", &scelta);
+      }while(scelta < 1 || scelta > 3);
+
+      if(scelta == 1 || scelta == 2){
+        printf("Inserire il vertice di partenza:\n");
+        scanf("%d", &part);
+
+        printf("Inserire il vertice di arrivo.\n");
+        scanf("%d", &arr);
+
+        if(g->pesato == 1 && scelta == 1){  //se l'operazione è di aggiunta e il grafo è pesato, allora viene preso da tastiera il peso.
+          printf("Inserire il peso dell'arco.\n");
+          scanf("%d", &peso);
+        }
+      }
+
+      switch(scelta){
+        case 1:
+          aggiungiArcoPesatoMatrix(g, part, arr, peso);
+          break;
+        case 2:
+          rimuoviArcoMatrix(g, part, arr);
+          break;
+        case 3:
+          esci = 1;
+          break;
+      }
+
+    }
+  }
+
+  return;
+}
+
 int isPesatoMatrix(grafomat *g){
 
   int ret = 0;

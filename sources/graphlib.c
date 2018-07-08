@@ -58,6 +58,52 @@ int nuovoGrafo(int vertici, grafo **g, int pesato){
   return ret;//ritorna 1 o 0 a seconda che la creazione sia andata a buon fine o meno
 }
 
+void menuGrafo(grafo *g){
+
+  int i;
+  int scelta = -1, esci = 0;
+  int part, arr, peso = 0;
+
+  if(!grafoVuoto(g)){
+
+    while(esci == 0){
+
+      do{
+        printf("Seleziona operazione\n1 = aggiungiArco\n2 = rimuoviArco\n3 = esci\n");
+        scanf("%d", &scelta);
+      }while(scelta < 1 || scelta > 3);
+
+      if(scelta == 1 || scelta == 2){
+        printf("Inserire il vertice di partenza:\n");
+        scanf("%d", &part);
+
+        printf("Inserire il vertice di arrivo.\n");
+        scanf("%d", &arr);
+
+        if(g->pesato == 1 && scelta == 1){  //se l'operazione è di aggiunta e il grafo è pesato, allora viene preso da tastiera il peso.
+          printf("Inserire il peso dell'arco.\n");
+          scanf("%d", &peso);
+        }
+      }
+
+      switch(scelta){
+        case 1:
+          aggiungiArcoPesato(g, part, arr, peso);
+          break;
+        case 2:
+          rimuoviArco(g, part, arr);
+          break;
+        case 3:
+          esci = 1;
+          break;
+      }
+
+    }
+  }
+  
+  return;
+}
+
 int isPesato(grafo *g){
 
   ret = 0;
