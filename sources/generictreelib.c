@@ -1,14 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h.h>
+#include <stdlib.h>
 #include "generictreelib.h"
-
-typedef struct gnodo{
-  int info;
-  struct gnodo *figlio;
-  struct gnodo *fratello;
-}gnodo;
-
-typedef struct gnodo* galbero;
 
 galbero nuovoGnodo(int key){
 

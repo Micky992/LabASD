@@ -2,20 +2,6 @@
 #include <stdlib.h>
 #include "stacklib.h"
 
-//*******************************************************************************
-//includere srand((unsigned int)time(0)) nel main se si fa uso di randomizzaStack
-//*******************************************************************************
-
-typedef struct stack{
- int *array;
- int dimensione;
-}stack;
-/*La struttura utilizzata e' uno stack implementato in una struct
-array e' un puntatore all'array contenente lo stack, dimensione e' il numero massimo di elementi dello stack
-l'array avra' spazio per un intero in piu' che servira' da indice al top dello stack
-array[0] contiene l'indice del top, cioe' il primo posto occupato, o 0 se lo stack e' vuoto
-*/
-
 stack *creaStack(int dim_max){
 
   stack *S = (stack *)malloc(sizeof(stack));//alloca spazio per la struct
@@ -162,7 +148,7 @@ int top(stack *S){
   if(S != NULL){
 
     if(!stackEmpty(S)){
-      x = S->array[S->array[0]];
+      ret = S->array[S->array[0]];
     }else{
       printf("Lo stack e' vuoto.\n");
     }
@@ -208,7 +194,7 @@ void randomizzaStack(stack *S, int numeroElementi, int valoreMax){
 
     while(i < numeroElementi && !stackFull(S)){
       push(S, ( rand() % valoreMax ) + 1);
-      i++:
+      i++;
     }
 
   }else{

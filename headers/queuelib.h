@@ -1,9 +1,21 @@
 #ifndef QUEUE_LIB_H
 #define QUEUE_LIB_H
 
+//*******************************************************************************
+//includere srand((unsigned int)time(0)) nel main se si fa uso di randomizzaQueue
+//*******************************************************************************
+
 /*prima di utilizzare un puntatore a queue, inizializzarlo con un puntatore ritornato da una chiamata a creaQueue*/
 
-typedef struct queue queue;
+typedef struct queue{
+  int *array;
+  int dimensione;
+}queue;
+/*La struttura utilizzata e' una coda implementata in una struct
+array e' un puntatore all'array contenente la coda, dimensione e' il numero massimo di elementi della coda
+l'array avra' spazio per due interi in piu' che serviranno da indici alla testa e alla coda
+array[0] contiene l'indice della testa, cioe' il primo posto occupato, o 0 se la queue e' vuota
+array[dimensione+1] contiene l'indice della coda, cioe' il primo posto libero*/
 
 queue *creaQueue(int dim_max);
 /*dato un intero

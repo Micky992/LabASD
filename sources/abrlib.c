@@ -2,14 +2,6 @@
 #include <stdlib.h>
 #include "abrlib.h"
 
-typedef struct nodo{
-  int info;
-  struct nodo *sx;
-  struct nodo *dx;
-}nodo;
-
-typedef struct nodo* albero;
-
 int alberoVuoto(albero radice){
 
   return (radice == NULL);

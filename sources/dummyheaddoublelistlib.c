@@ -2,14 +2,6 @@
 #include <stdlib.h>
 #include "dummyheaddoublelistlib.h"
 
-typedef struct dummyNode{
-  int info;
-  struct dummyNode *prev;
-  struct dummyNode *next;
-} dummyNode;
-
-typedef dummyNode* dummyList;
-
 int listaVuotaDummy(dummyList dum){
 
   int ret = 0;

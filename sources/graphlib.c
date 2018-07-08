@@ -2,18 +2,6 @@
 #include <stdlib.h>
 #include "graphlib.h"
 
-typedef struct arco{
-  int key;
-  struct arco *next;
-  int peso;
-}arco;
-
-typedef struct grafo{
-  int n_vertici;
-  arco **adiacenti;
-  int pesato;
-}grafo;
-
 int grafoVuoto(grafo *g){
     return (g == NULL);
 }
@@ -100,13 +88,13 @@ void menuGrafo(grafo *g){
 
     }
   }
-  
+
   return;
 }
 
 int isPesato(grafo *g){
 
-  ret = 0;
+  int ret = 0;
 
   if(!grafoVuoto(g)){
     ret = g->pesato;

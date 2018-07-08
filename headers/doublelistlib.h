@@ -5,7 +5,11 @@
 //includere srand((unsigned int)time(0)) nel main se si fa uso di randomizzaListaDop
 //*******************************************************************************
 
-typedef struct delem delem;
+typedef struct delem{
+    int info;
+    struct delem *prev;
+    struct delem *next;
+}delem;
 
 typedef delem* dlista;
 

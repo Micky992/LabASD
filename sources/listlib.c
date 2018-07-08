@@ -2,19 +2,6 @@
 #include <stdlib.h>
 #include "listlib.h"
 
-typedef struct elem
-{
-    int info;
-    struct elem *next;
-}elem;
-/*La struttura utilizzata e' una lista singolarmente puntata i cui nodi sono implementati come struct
-info contiene un intero, next e' un puntatore al prossimo nodo della lista
-il typedef permette di sostituire la dicitura "struct elem" con il piu' snello "elem" */
-
-typedef elem* lista;
-/*un puntatore ad elem e' a tutti gli effetti una lista, quindi viene rinominato "lista"
-un dato di tipo lista per essere coerente deve alternativamente puntare a un nodo di lista o essere NULL*/
-
 void stampaLista(lista top){
 
   if(top != NULL){

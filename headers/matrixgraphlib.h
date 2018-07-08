@@ -5,7 +5,12 @@
 //includere srand((unsigned int)time(0)) nel main se si fa uso di randomizzaGrafoMatrix o randomizzaGrafoPesatoMatrix
 //*******************************************************************************
 
-typedef struct grafomat grafomat;
+typedef struct grafomat{
+  int n_vertici;
+  int *adiacenti;
+  int *pesi;
+  int pesato;
+}grafomat;
 
 /*
 *******************************************************

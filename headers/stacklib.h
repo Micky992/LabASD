@@ -3,7 +3,19 @@
 
 /*prima di utilizzare un puntatore a stack, inizializzarlo con un puntatore ritornato da una chiamata a creaStack*/
 
-typedef struct stack stack;
+//*******************************************************************************
+//includere srand((unsigned int)time(0)) nel main se si fa uso di randomizzaStack
+//*******************************************************************************
+
+typedef struct stack{
+ int *array;
+ int dimensione;
+}stack;
+/*La struttura utilizzata e' uno stack implementato in una struct
+array e' un puntatore all'array contenente lo stack, dimensione e' il numero massimo di elementi dello stack
+l'array avra' spazio per un intero in piu' che servira' da indice al top dello stack
+array[0] contiene l'indice del top, cioe' il primo posto occupato, o 0 se lo stack e' vuoto
+*/
 
 stack *creaStack(int dim_max);
 /*dato un intero

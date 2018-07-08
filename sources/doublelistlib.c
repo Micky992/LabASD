@@ -2,14 +2,6 @@
 #include <stdlib.h>
 #include "doublelistlib.h"
 
-typedef struct delem{
-    int info;
-    struct delem *prev;
-    struct delem *next;
-}delem;
-
-typedef delem* dlista;
-
 dlista inizializzaListaDop(dlista top){
 
   int scelta = -1;

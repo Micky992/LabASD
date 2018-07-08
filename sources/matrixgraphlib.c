@@ -2,13 +2,6 @@
 #include <stdlib.h>
 #include "matrixgraphlib.h"
 
-typedef struct grafomat{
-  int n_vertici;
-  int *adiacenti;
-  int *pesi;
-  int pesato;
-}grafomat;
-
 int grafoVuotoMatrix(grafomat *g){
   return (g == NULL);
 }
@@ -71,7 +64,7 @@ void menuGrafoMatrix(grafomat *g){
   int scelta = -1, esci = 0;
   int part, arr, peso = 0;
 
-  if(!grafoVuoto(g)){
+  if(!grafoVuotoMatrix(g)){
 
     while(esci == 0){
 

@@ -1,9 +1,13 @@
 #ifndef GENERIC_TREE_LIB_H
 #define GENERIC_TREE_LIB_H
 
-typedef struct gnodo gnodo;
+typedef struct gnodo{
+  int info;
+  struct gnodo *figlio;
+  struct gnodo *fratello;
+}gnodo;
 
-typedef struct galbero galbero;
+typedef gnodo* galbero;
 
 galbero nuovoGnodo(int key);
 /*dato un intero

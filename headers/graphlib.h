@@ -5,9 +5,17 @@
 //includere srand((unsigned int)time(0)) nel main se si fa uso di randomizzaGrafo o randomizzaGrafoPesato
 //*******************************************************************************
 
-typedef struct arco arco;
+typedef struct arco{
+  int key;
+  struct arco *next;
+  int peso;
+}arco;
 
-typedef struct grafo grafo;
+typedef struct grafo{
+  int n_vertici;
+  arco **adiacenti;
+  int pesato;
+}grafo;
 
 /*
 *******************************************************

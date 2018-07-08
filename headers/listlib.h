@@ -1,7 +1,11 @@
 #ifndef LIST_LIB_H
 #define LIST_LIB_H
 
-typedef struct elem elem;
+typedef struct elem
+{
+    int info;
+    struct elem *next;
+}elem;
 /*un elem e' un nodo, elemento costitutivo di una lista*/
 
 typedef elem* lista;

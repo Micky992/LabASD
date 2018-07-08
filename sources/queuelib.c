@@ -2,20 +2,6 @@
 #include <stdlib.h>
 #include "queuelib.h"
 
-//*******************************************************************************
-//includere srand((unsigned int)time(0)) nel main se si fa uso di randomizzaQueue
-//*******************************************************************************
-
-typedef struct queue{
-  int *array;
-  int dimensione;
-}queue;
-/*La struttura utilizzata e' una coda implementata in una struct
-array e' un puntatore all'array contenente la coda, dimensione e' il numero massimo di elementi della coda
-l'array avra' spazio per due interi in piu' che serviranno da indici alla testa e alla coda
-array[0] contiene l'indice della testa, cioe' il primo posto occupato, o 0 se la queue e' vuota
-array[dimensione+1] contiene l'indice della coda, cioe' il primo posto libero*/
-
 queue *creaQueue(int dim_max){
 
   queue *Q = (queue *)malloc(sizeof(queue));//alloca spazio per la struct
@@ -53,7 +39,7 @@ void riempiQueue(queue *Q){
       scanf("%d", &scelta);
     }while(scelta < 0);
 
-    while(i < numelem && !queueFull(Q)){
+    while(i < scelta && !queueFull(Q)){
       printf("inserire elemento %d: ", i+1);
       scanf("%d", &x);
 
@@ -212,7 +198,7 @@ void randomizzaQueue(queue *Q, int numeroElementi, int valoreMax){
 
     while(i < numeroElementi && !queueFull(Q)){
       enqueue(Q, ( rand() % valoreMax ) + 1);
-      i++:
+      i++;
     }
 
   }else{

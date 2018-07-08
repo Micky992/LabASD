@@ -5,7 +5,11 @@
 //includere srand((unsigned int)time(0)) nel main se si fa uso di randomizzaABR
 //*******************************************************************************
 
-typedef struct nodo nodo;
+typedef struct nodo{
+  int info;
+  struct nodo *sx;
+  struct nodo *dx;
+}nodo;
 
 typedef nodo* albero;
 
