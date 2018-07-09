@@ -160,30 +160,17 @@ int top(stack *S){
   return ret;
 }
 
-void stampaS(stack *S){
-
-  int i;
-
-  if(!stackEmpty(S)){
-    i = pop(S);//estrae un elemento
-    stampaStack(S);//stampa il resto dello stack
-    printf("%d ", i);//stampa l'elemento
-    push(S, i);//reinserisce l'elemento nello stack
+void stampaStack(stack *S) {
+  if (stackEmpty(S)){
+    printf("\n");
+    return;
   }
-
-  return;
-}
-
-void stampaStack(stack *S){
-
-  if(S != NULL){
-    stampaS(S);//stampa lo stack
-    printf("\n");//stampa newline
-  }else{
-    printf("ERRORE in stampaStack: puntatore NULL\n");
+  else {
+    int valore=pop(S);
+    printf("%d   ", valore);
+    stampaStack(S);
+    push(S, valore);
   }
-
-  return;
 }
 
 void randomizzaStack(stack *S, int numeroElementi, int valoreMax){
